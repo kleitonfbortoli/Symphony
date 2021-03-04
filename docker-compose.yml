@@ -1,0 +1,14 @@
+version: '3'
+services:
+    web_homolog:
+        image: tiangolo/uvicorn-gunicorn-fastapi:python3.7
+        networks:
+            - my_net
+        volumes:
+            - ./api:/app
+        ports:
+            - 8080:80
+        restart: always
+networks:
+  my_net:
+    driver: bridge
