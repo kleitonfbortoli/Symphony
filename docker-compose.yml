@@ -1,6 +1,6 @@
-version: '3'
+version: '3.3'
 services:
-    web_homolog:
+    api:
         image: tiangolo/uvicorn-gunicorn-fastapi:python3.7
         networks:
             - my_net
@@ -9,6 +9,21 @@ services:
         ports:
             - 8080:80
         restart: always
+
+    database:
+        image: postgres:latest
+        networks:
+            - my_net
+        restart: always
+        environment:  
+            POSTGRES_PASSWORD: postgres  
+            POSTGRES_DB: postgres
+            PGDATA: /var/lib/postgresql/data/pgdata
+        ports:
+            - 5433:5432
+        volumes:
+            - ./database/conf/:/docker-entrypoint-initdb.d/
+            - ./database/data/:/var/lib/postgresql/data
 networks:
   my_net:
     driver: bridge
