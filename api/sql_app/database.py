@@ -1,7 +1,7 @@
 from peewee import *
 from peewee import PostgresqlDatabase
 
-Symphony_Db = PostgresqlDatabase('symphony', user='symphony', host='127.0.0.1')
+Symphony_Db = PostgresqlDatabase('symphony', user='symphony', password='carambolasAzuis784', host='database')
 
 class SymphonyModel(Model):
     class Meta:
