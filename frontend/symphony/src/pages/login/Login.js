@@ -9,7 +9,7 @@ import './Login.css'
 
 const Login = () => {
     const handleSubmit = values => (
-        axios.post('http://localhost:8000/login', values)
+        axios.post('http://localhost:8080/login', values)
             .then(resp => {
                 const { data } = resp
                 if(data.status === '200')
