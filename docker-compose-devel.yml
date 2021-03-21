@@ -1,17 +1,16 @@
 version: '3.3'
 services:
     api:
-        image: tiangolo/uvicorn-gunicorn-fastapi:python3.7
+        build: ./images_devel/python
         networks:
             - my_net
-        volumes:
-            - ./api:/app
         ports:
-            - 8080:80
+          - 8080:80
+        volumes:
+          - ./api:/app
         restart: always
-
     database:
-        image: postgres:latest
+        build: ./images_devel/database
         networks:
             - my_net
         restart: always
@@ -21,9 +20,15 @@ services:
             PGDATA: /var/lib/postgresql/data/pgdata
         ports:
             - 5433:5432
+    frontend:
+        build: ./images_devel/react
+        networks:
+            - my_net
         volumes:
-            - ./database/conf/:/docker-entrypoint-initdb.d/
-            - ./database/data/:/var/lib/postgresql/data
+          - ./frontend/symphony:/app
+        ports:
+          - 3000:3000
+        restart: always
 networks:
   my_net:
     driver: bridge
