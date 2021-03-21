@@ -1,5 +1,4 @@
-from peewee import *
-from peewee import PostgresqlDatabase
+from peewee import Model,AutoField,TextField,CharField,ForeignKeyField,IntegerField,DateField,DoubleField,BooleanField,PostgresqlDatabase
 
 Symphony_Db = PostgresqlDatabase('symphony', user='symphony', password='carambolasAzuis784', host='database')
 

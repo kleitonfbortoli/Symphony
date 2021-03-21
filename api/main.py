@@ -1,6 +1,7 @@
 import sys
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from service.pessoa_service import *
 
 # from sql_app.database import *
 from base_model import *
@@ -34,8 +35,12 @@ def read_login( request: RequestPostLogin ):
 
 @app.post("/cadastro-pessoa")
 def read_cadastro_pessoa( request: RequestPostCadastroPessoa ):
+    # pessoa = Pessoa(RequestPostCadastroPessoa)
+    # print(pessoa)
     return make_return(return_constants.STATUS_SUCCESS, request)
 
 @app.post("/cadastro-disciplina")
 def read_cadastro_disciplina( request: RequestPostCadastroDisciplina ):
-    return make_return(return_constants.STATUS_SUCCESS, request)
+    retorno = Disciplina(nome='asdasd', ch='asdsad')
+    retorno.save()
+    return make_return(return_constants.STATUS_SUCCESS, retorno)
