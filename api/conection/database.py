@@ -28,6 +28,8 @@ class Pessoa(SymphonyModel):
     id = AutoField()
     nome = TextField(null='false')
     dt_nascimento = DateField()
+    email = TextField()
+    password = TextField()
     ref_cidade = ForeignKeyField(Cidade, backref='id', null='false')
     
 """ TABELAS DE CADASTRO ACADÊMICOS """
