@@ -1,0 +1,130 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .form-title {
+        margin-top: 30px;
+        margin-bottom: 0px;
+        font-size: 4rem;
+        text-align: center;
+        width: 90%;
+    }
+
+    .form-subtitle {
+        text-align: center;
+        font-size: 1rem;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        width: 90%;
+    }
+    
+    .form-body {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        .field-group {
+            width: 100%;
+            max-width: 750px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            
+            .field {
+                border: none;
+                background-color: rgba(0, 0, 0, .15);
+                color: #fdfdfd;
+                margin-top: 1rem;
+                margin-bottom: 3px;
+                width: 90%;
+                padding: 1rem;
+                font-size: 1.2rem;
+                border-radius: 7px;
+                transition: all .1s linear;
+            }
+            
+            .field:focus {
+                outline: none;
+                box-shadow: 0 4px 4px rgba(0, 0, 0, .5);
+            }
+            
+            .field-error {
+                color: #ff6767;
+            }
+        }
+
+        .submit-button {
+            background: #00cc99;
+            color: #fdfdfd;
+            padding: .5rem 2rem;
+            border: none;
+            border-radius: 5px;
+            margin-top: 2rem;
+        }
+
+        .submit-button:hover {
+            cursor: pointer;
+            box-shadow: 0 4px 4px rgba(0, 0, 0, .5);
+        }
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+
+    .form {
+        .form-title {
+            margin-top: 20px;
+            font-size: 3rem;
+        }
+    
+        .form-subtitle {
+            font-size: 1rem;
+        }
+
+        .form-body {
+            
+            .field-group {
+                max-width: 700px;
+                
+                .field {
+                    font-size: 1rem;
+                }
+               
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 750px) {
+
+    .form {
+        .form-title {
+            margin-top: 10px;
+            margin-bottom: 0px;
+            font-size: 2.5rem;
+        }
+    
+        .form-subtitle {
+            font-size: 1rem;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .form-body {
+            
+            .field-group {
+                max-width: 500px;
+                
+                .field {
+                    margin-top: 0.5rem;
+                    margin-bottom: 3px;
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+}

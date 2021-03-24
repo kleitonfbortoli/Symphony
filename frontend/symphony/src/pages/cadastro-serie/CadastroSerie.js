@@ -6,9 +6,9 @@ import axios from 'axios'
 
 import '../../styles/css/pages/basic/forms.css'
 
-const CadastroDisciplina = () => {
+const CadastroSerie = () => {
     const handleSubmit = values => (
-        axios.post('http://localhost:8000/cadastro-disciplina', values)
+        axios.post('http://localhost:8000/cadastro-serie', values)
             .then(resp => {
                 console.log(resp)
             })
@@ -20,13 +20,13 @@ const CadastroDisciplina = () => {
     
     const validations = yup.object().shape({
         nome: yup.string().required(),
-        ch: yup.number().required()
+        ch_total: yup.number().required()
     })
 
     return (
         <>
             <div className="form">
-                <h1 className="form-title">Cadastro Disciplina</h1>
+                <h1 className="form-title">Cadastro Série</h1>
                 <p className="form-subtitle">Preencha os campos para continuar</p>
                 <Formik initialValues={{}} onSubmit={handleSubmit} validationSchema={validations}>
                     <Form className="form-body">
@@ -35,8 +35,8 @@ const CadastroDisciplina = () => {
                             <ErrorMessage component="span" name="nome" className="field-error"/>
                         </div>
                         <div className="field-group">
-                            <Field name="ch" className="field" placeholder="Carga Horária"/>
-                            <ErrorMessage component="span" name="ch" className="field-error"/>
+                            <Field name="ch_total" className="field" placeholder="Carga Horária Total"/>
+                            <ErrorMessage component="span" name="ch_total" className="field-error"/>
                         </div>
                         <button className="submit-button" type="submit">Salvar</button>
                     </Form>
@@ -46,4 +46,4 @@ const CadastroDisciplina = () => {
     )
 }
 
-export default CadastroDisciplina
+export default CadastroSerie

@@ -27,7 +27,10 @@ def make_return(status, response):
 
 @app.get("/")
 def read_root():
-    return make_return(return_constants.STATUS_SUCCESS, {"Hello": "World"})
+    pessoa = Pais(nome="asdsad", uf="as")
+    pessoa.save();
+    print(pessoa)
+    # return make_return(return_constants.STATUS_SUCCESS, {"Hello": "World"})
 
 @app.post("/login")
 def read_login( request: RequestPostLogin ):
