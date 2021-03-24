@@ -5,20 +5,22 @@ import * as yup from 'yup'
 import axios from 'axios'
 import { history } from '../../components/history'
 
-import './Login.css'
+import '../../styles/css/pages/basic/forms.css'
 
 const Login = () => {
     const handleSubmit = values => (
-        axios.post('http://localhost:8080/login', values)
-            .then(resp => {
-                const { data } = resp
-                if(data.status === '200')
-                {
-                    console.log(resp)
-                    localStorage.setItem('user-mail',data.response.email)
-                    history.push('/')
-                }
-            })
+        localStorage.setItem('user-mail',values.email)
+
+        // axios.post('http://localhost:8080/login', values)
+        //     .then(resp => {
+        //         const { data } = resp
+        //         if(data.status === '200')
+        //         {
+        //             console.log(resp)
+        //             localStorage.setItem('user-mail',data.response.email)
+        //             history.push('/')
+        //         }
+        //     })
     )
     
     const validations = yup.object().shape({
@@ -28,21 +30,23 @@ const Login = () => {
 
     return (
         <>
-            <h1>LOGIN</h1>
-            <p>Preencha os campos para continuar</p>
-            <Formik initialValues={{}} onSubmit={handleSubmit} validationSchema={validations}>
-                <Form className="Form">
-                    <div className="Login-Group">
-                        <Field name="email" className="Login-Field"/>
-                        <ErrorMessage component="span" name="email" className="Login-Error"/>
-                    </div>
-                    <div className="Login-Group">
-                        <Field name="password" className="Login-Field"/>
-                        <ErrorMessage component="span" name="password" className="Login-Error"/>
-                    </div>
-                    <button className="Login-btn" type="submit">Login</button>
-                </Form>
-            </Formik>
+            <div className="form">
+                <h1 className="form-title">Login</h1>
+                <p className="form-subtitle">Preencha os campos para continuar</p>
+                <Formik initialValues={{}} onSubmit={handleSubmit} validationSchema={validations}>
+                    <Form className="form-body">
+                        <div className="field-group">
+                            <Field name="email" className="field"/>
+                            <ErrorMessage component="span" name="email" className="field-error" placeholder="Login"/>
+                        </div>
+                        <div className="field-group">
+                            <Field name="password" className="field"/>
+                            <ErrorMessage component="span" name="password" className="field-error" placeholder="Senha"/>
+                        </div>
+                        <button className="submit-button" type="submit">Login</button>
+                    </Form>
+                </Formik>
+            </div>
         </>
     )
 }

@@ -6,7 +6,7 @@ import axios from 'axios'
 
 import '../../styles/css/pages/basic/forms.css'
 
-const CadastroPessoa = () => {
+const CadastroPeriodo = () => {
     const handleSubmit = values => (
         axios.post('http://localhost:8000/cadastro-pessoa', values)
             .then(resp => {
@@ -19,34 +19,29 @@ const CadastroPessoa = () => {
     )
     
     const validations = yup.object().shape({
-        email: yup.string().email().required(),
-        password: yup.string().min(8).required(),
-        nome: yup.string().required(),
-        dt_nascimento: yup.date().required()
+        descricao: yup.string().required(),
+        dt_inicio: yup.date().required(),
+        dt_final: yup.date().required()
     })
 
     return (
         <>
             <div className="form">
-                <h1 className="form-title">Cadastro Pessoa</h1>
+                <h1 className="form-title">Cadastro Período</h1>
                 <p className="form-subtitle">Preencha os campos para continuar</p>
                 <Formik initialValues={{}} onSubmit={handleSubmit} validationSchema={validations}>
                     <Form className="form-body">
                         <div className="field-group">
-                            <Field name="nome" className="field" placeholder="Nome"/>
-                            <ErrorMessage component="span" name="nome" className="field-error"/>
+                            <Field name="descricao" className="field" placeholder="Descrição"/>
+                            <ErrorMessage component="span" name="descricao" className="field-error"/>
                         </div>
                         <div className="field-group">
-                            <Field name="dt_nascimento" className="field" placeholder="Data Nascimentos"/>
-                            <ErrorMessage component="span" name="dt_nascimento" className="field-error"/>
+                            <Field name="dt_inicio" className="field" placeholder="Data Inicial"/>
+                            <ErrorMessage component="span" name="dt_inicio" className="field-error"/>
                         </div>
                         <div className="field-group">
-                            <Field name="email" className="field" placeholder="Email"/>
-                            <ErrorMessage component="span" name="email" className="field-error"/>
-                        </div>
-                        <div className="field-group">
-                            <Field name="password" className="field" placeholder="Senha"/>
-                            <ErrorMessage component="span" name="password" className="field-error"/>
+                            <Field name="dt_final" className="field" placeholder="Data Final"/>
+                            <ErrorMessage component="span" name="dt_final" className="field-error"/>
                         </div>
                         <button className="submit-button" type="submit">Enviar</button>
                     </Form>
@@ -56,4 +51,4 @@ const CadastroPessoa = () => {
     )
 }
 
-export default CadastroPessoa
+export default CadastroPeriodo

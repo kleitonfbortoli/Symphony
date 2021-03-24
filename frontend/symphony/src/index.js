@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import App from './containers/App'
 
 import 'normalize.css'
-import './index.css'
+import './styles/css/index/index.css'
 
 ReactDOM.render(
   <React.StrictMode>
