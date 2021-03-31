@@ -4,7 +4,7 @@ import {ErrorMessage, Formik, Form, Field} from 'formik'
 import * as yup from 'yup'
 import axios from 'axios'
 
-import '../../styles/css/pages/basic/forms.css'
+import '../../styles/scss/pages/basic/forms.scss'
 
 const CadastroPeriodo = () => {
     const handleSubmit = values => (
