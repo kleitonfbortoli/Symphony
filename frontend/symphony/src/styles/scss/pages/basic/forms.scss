@@ -45,6 +45,10 @@
                 font-size: 1.2rem;
                 border-radius: 7px;
                 transition: all .1s linear;
+
+                &::placeholder {
+                    color: #ffffffb6;
+                  }
             }
             
             .field:focus {

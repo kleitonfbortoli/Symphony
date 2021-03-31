@@ -1,5 +1,5 @@
 # import database as database
-from database import *
+from database.database import *
 
 Symphony_Db.connect()
 

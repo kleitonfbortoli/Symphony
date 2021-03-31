@@ -1,11 +1,12 @@
-import sys
+import json
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from service.pessoa_service import *
 
-# from sql_app.database import *
-from base_model import *
-from return_status import return_constants as return_constants
+from service.basic.pessoa_service import *
+from constants.request_model import *
+from constants.status_model import return_constants as return_constants
+from database.database import *
 
 app = FastAPI()
 
@@ -22,28 +23,31 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-def make_return(status, response):
+def make_return_data(status, response):
     return {"status":status, "response":response}
+
+@app.post("/teste")
+def read_logina( request: RequestTest ):
+    json1 = json.loads(json.dumps(request.__dict__))
+    pessoa = Pais.update(uf='BRA',nome='Brasil').where(Pais.id == 8).execute()
+    print(pessoa)
+    return make_return_data(return_constants.STATUS_SUCCESS, request)
 
 @app.get("/")
 def read_root():
-    pessoa = Pais(nome="asdsad", uf="as")
-    pessoa.save();
-    print(pessoa)
-    # return make_return(return_constants.STATUS_SUCCESS, {"Hello": "World"})
+    return make_return_data(return_constants.STATUS_SUCCESS, {"Hello": "World"})
 
 @app.post("/login")
 def read_login( request: RequestPostLogin ):
-    return make_return(return_constants.STATUS_SUCCESS, request)
+    return make_return_data(return_constants.STATUS_SUCCESS, request)
 
 @app.post("/cadastro-pessoa")
 def read_cadastro_pessoa( request: RequestPostCadastroPessoa ):
-    # pessoa = Pessoa(RequestPostCadastroPessoa)
-    # print(pessoa)
-    return make_return(return_constants.STATUS_SUCCESS, request)
+    PessoaService.storePessoa(data=request);
+    return make_return_data(return_constants.STATUS_SUCCESS, request)
 
 @app.post("/cadastro-disciplina")
 def read_cadastro_disciplina( request: RequestPostCadastroDisciplina ):
     retorno = Disciplina(nome='asdasd', ch='asdsad')
     retorno.save()
-    return make_return(return_constants.STATUS_SUCCESS, retorno)
+    return make_return_data(return_constants.STATUS_SUCCESS, retorno)

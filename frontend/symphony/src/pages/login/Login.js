@@ -5,7 +5,7 @@ import * as yup from 'yup'
 import axios from 'axios'
 import { history } from '../../components/history'
 
-import '../../styles/css/pages/basic/forms.css'
+import '../../styles/scss/pages/basic/forms.scss'
 
 const Login = () => {
     const handleSubmit = values => (
