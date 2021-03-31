@@ -1,6 +1,6 @@
 from peewee import Model,TextField,CharField,ForeignKeyField,IntegerField,DateField,DoubleField,BooleanField,PostgresqlDatabase,DateTimeField,JSONField
 import json
-Symphony_Db = PostgresqlDatabase('symphony', user='symphony', password='carambolasAzuis784', host='localhost')
+Symphony_Db = PostgresqlDatabase('symphony', user='symphony', password='carambolasAzuis784', host='database')
 
 class SymphonyModel(Model):
     class Meta:
