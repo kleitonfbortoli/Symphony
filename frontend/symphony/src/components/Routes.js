@@ -7,6 +7,8 @@ import CadastroPessoa from '../pages/cadastro-pessoa'
 import CadastroSerie from '../pages/cadastro-serie'
 import CadastroPeriodo from '../pages/cadastro-periodo-academico'
 import CadastroDisciplina from '../pages/cadastro-disciplina'
+import CadastroNota from '../pages/cadastro-nota'
+import CadastroTipoNota from '../pages/cadastro-tipo-nota'
 import NotFound from './NotFound'
 import PrivateRout from './PrivateRout'
 
@@ -20,6 +22,8 @@ const Routes = () => (
         <PrivateRout component={CadastroPeriodo} path="/cadastro-periodo-academico"/>
         <PrivateRout component={CadastroSerie} path="/cadastro-serie"/>
         <PrivateRout component={CadastroDisciplina} path="/cadastro-disciplina"/>
+        <PrivateRout component={CadastroNota} path="/cadastro-nota"/>
+        <PrivateRout component={CadastroTipoNota} path="/cadastro-tipo-nota"/>
         {/* <PrivateRout component={NotFound}/> */}
     </>
 )

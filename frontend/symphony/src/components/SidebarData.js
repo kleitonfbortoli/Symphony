@@ -34,6 +34,18 @@ export const SidebarData = [
         path: '/cadastro-periodo-academico',
         icon: <BsIcons.BsFillCalendarFill />,
         cName: 'nav-text'
+    },
+    {
+        title: 'Cadastro Nota',
+        path: '/cadastro-nota',
+        icon: <BsIcons.BsFileEarmarkText />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Cadastro Tipo de nota',
+        path: '/cadastro-tipo-nota',
+        icon: <IoIcons.IoMdOptions />,
+        cName: 'nav-text'
     }
     
 ]
