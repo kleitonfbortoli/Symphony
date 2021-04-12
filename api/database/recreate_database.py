@@ -1,9 +1,6 @@
 # import database as database
-<<<<<<< HEAD:api/database/recreate_database.py
 from database.symphony_db import *
-=======
-from database.database import *
->>>>>>> 2754f82295d7d6c16b659e137b2a72cf9cbe0175:api/sql_app/recreate_database.py
+
 
 Symphony_Db.connect()
 

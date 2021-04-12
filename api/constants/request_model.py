@@ -8,19 +8,11 @@ email_regex = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$"
 """ Aqui obriga a todos os requests passarem o tokem_access que é a informação de quem está logado,
     os requests que não necessitam estar logado, usam direto BaseModel  """
 class BaseRequestModel(BaseModel):
-<<<<<<< HEAD
-    token: str
-=======
     token_access: str
->>>>>>> 2754f82295d7d6c16b659e137b2a72cf9cbe0175
 
 class RequestPostLogin(BaseModel):
     email: str
     password: str
-<<<<<<< HEAD
-    token: str
-=======
->>>>>>> 2754f82295d7d6c16b659e137b2a72cf9cbe0175
     
     @staticmethod
     @validator('email')
