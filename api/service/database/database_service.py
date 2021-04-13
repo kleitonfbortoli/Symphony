@@ -1,7 +1,7 @@
 from peewee import Model
 from pydantic import BaseModel
+from database.symphony_db import *
 
-from database.database import *
 
 class DataBaseService:
     @staticmethod
@@ -12,9 +12,10 @@ class DataBaseService:
             if(json_data['id']):
                 entity.update(**json_data).where(entity.id == json_data['id']).execute()
             else:
-                entity.create(**json_data)
-        except:
-            pass
+                print(json_data)
+                print(entity.create(**json_data))
+        except Exception as e:
+            print(str(e))
             
     @staticmethod
     def convertBaseModelToJson(data: BaseModel):

@@ -9,28 +9,28 @@ services:
         volumes:
           - ./api:/app
         restart: always
-    # database:
-    #     build: ./images_devel/database
-    #     networks:
-    #         - my_net
-    #     restart: always
-    #     environment:  
-    #         POSTGRES_PASSWORD: postgres  
-    #         POSTGRES_DB: postgres
-    #         PGDATA: /var/lib/postgresql/data/pgdata
-    #     ports:
-    #         - 5433:5432
-    # frontend:
-    #     image: node
-    #     networks:
-    #         - my_net
-    #     volumes:
-    #       - ./frontend/symphony:/app
-    #     ports:
-    #       - 3000:3000
-    #     working_dir: /app
-    #     command: 'npm start'
-    #     restart: always
+    database:
+        build: ./images_devel/database
+        networks:
+            - my_net
+        restart: always
+        environment:  
+            POSTGRES_PASSWORD: postgres  
+            POSTGRES_DB: postgres
+            PGDATA: /var/lib/postgresql/data/pgdata
+        ports:
+            - 5433:5432
+    frontend:
+        image: node
+        networks:
+            - my_net
+        volumes:
+          - ./frontend/symphony:/app
+        ports:
+          - 3000:3000
+        working_dir: /app
+        command: 'npm start'
+        restart: always
 networks:
   my_net:
     driver: bridge
