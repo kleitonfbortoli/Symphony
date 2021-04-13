@@ -1,13 +1,35 @@
 version: '3.3'
 services:
-    api:
-        build: ./images_devel/python
+    #api:
+    #    build: ./images_devel/python
+    #    networks:
+    #        - my_net
+    #    ports:
+    #      - 8080:80
+    #    volumes:
+    #      - ./api:/app
+    #    restart: always
+    database:
+        build: ./images_devel/database
         networks:
             - my_net
+        restart: always
+        environment:  
+            POSTGRES_PASSWORD: postgres  
+            POSTGRES_DB: postgres
+            PGDATA: /var/lib/postgresql/data/pgdata
         ports:
-          - 8080:80
+            - 5433:5432
+    frontend:
+        image: node
+        networks:
+            - my_net
         volumes:
-          - ./api:/app
+          - ./frontend/symphony:/app
+        ports:
+          - 3000:3000
+        working_dir: /app
+        command: 'npm start'
         restart: always
     database:
         build: ./images_devel/database
