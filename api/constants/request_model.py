@@ -8,9 +8,10 @@ email_regex = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$"
 """ Aqui obriga a todos os requests passarem o tokem_access que é a informação de quem está logado,
     os requests que não necessitam estar logado, usam direto BaseModel  """
 class BaseRequestModel(BaseModel):
+    id: Optional[int]
     token_access: str
 
-class RequestPostLogin(BaseModel):
+class RequestPostLogin(BaseRequestModel):
     email: str
     password: str
     
@@ -32,7 +33,6 @@ class RequestPostCadastroDisciplina(BaseRequestModel):
     ch: str
     
 class RequestPostCadastroPessoa(BaseRequestModel):
-    id: Optional[int]
     email: str
     password: str
     nome: str
@@ -66,3 +66,15 @@ class RequestPostCadastroPessoa(BaseRequestModel):
         if(date1 > date2):
             raise ValueError("A data não pode ser maior que hoje")
         return v
+    
+class RequestPostCadastroSerie(BaseRequestModel):
+    nome: str
+    ch_total: str
+    
+class RequestPostCadastroPeriodoAcademico(BaseRequestModel):
+    descricao: str
+    dt_inicio: str
+    dt_final: str
+    
+class RequestPostCadastroTipoNota(BaseRequestModel):
+    descricao: str

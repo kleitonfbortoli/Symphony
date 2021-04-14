@@ -9,11 +9,10 @@ class PessoaService:
     @Symphony_Db.atomic()
     def storePessoa(data: BaseModel):
         DataBaseService.store(PessoaService.entity, data)
-        return True    
+        return data
     
     @staticmethod
     @Symphony_Db.atomic()
     def getByEmailAndSenha(email: str, password:str):
         user = Pessoa.select().where(Pessoa.email == email, Pessoa.password == password).first()
         return user
-

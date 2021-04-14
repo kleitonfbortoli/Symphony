@@ -10,11 +10,13 @@ class DataBaseService:
         try:
             json_data = DataBaseService.convertBaseModelToJson(data)
             if(json_data['id']):
+                print('update')
                 entity.update(**json_data).where(entity.id == json_data['id']).execute()
             else:
-                print(json_data)
-                print(entity.create(**json_data))
+                print('insert')
+                entity.create(**json_data)
         except Exception as e:
+            print('erro')
             print(str(e))
             
     @staticmethod

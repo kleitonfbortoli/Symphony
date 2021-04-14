@@ -2,21 +2,19 @@ import React from 'react'
 
 import {ErrorMessage, Formik, Form, Field} from 'formik'
 import * as yup from 'yup'
-import axios from 'axios'
+
+import { System } from '../../system/system'
+import { Message } from '../../system/message'
+import { POST_CADASTRO_PESSOA } from '../../system/constants'
 
 import '../../styles/scss/pages/basic/forms.scss'
 
 const CadastroPessoa = () => {
-    const handleSubmit = values => (
-        axios.post('http://localhost:8000/cadastro-pessoa', values)
-            .then(resp => {
-                console.log(resp)
-            })
-            .catch(error => {
-                console.log('Erro')
-                console.log(error)
-            })
-    )
+    const handleSubmit = (values => {
+        System.post(POST_CADASTRO_PESSOA, values, (data) => {
+            Message.showMessage("Usuário salvo com sucesso");
+        });
+    });
     
     const validations = yup.object().shape({
         email: yup.string().email().required(),

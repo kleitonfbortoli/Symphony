@@ -1,0 +1,7 @@
+export const BASIC_URL = 'http://localhost:8000/'
+export const POST_LOGIN = 'login'
+export const POST_CADASTRO_PESSOA = 'cadastro-pessoa'
+export const POST_CADASTRO_DISCIPLINA = 'cadastro-disciplina'
+export const POST_CADASTRO_SERIE = 'cadastro-serie'
+export const POST_CADASTRO_PERIODO_ACADEMICO = 'cadastro-periodo-academico'
+export const POST_CADASTRO_TIPO_NOTA = 'cadastro-tipo-nota'

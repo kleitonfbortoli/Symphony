@@ -26,7 +26,7 @@ class SystemService:
         
         try:
             # Verifica se a pessoa está logada e se a sessão é valida
-            session = SessionService.isLoged( token=data.token )
+            session = SessionService.isLoged( token=data.token_access )
             self.session = session
         except Exception as e:
             print(e)

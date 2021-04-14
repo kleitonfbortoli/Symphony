@@ -2,26 +2,20 @@ import React from 'react'
 
 import {ErrorMessage, Formik, Form, Field} from 'formik'
 import * as yup from 'yup'
-import axios from 'axios'
-import { history } from '../../components/history'
+
+import { System } from '../../system/system'
+import { POST_LOGIN } from '../../system/constants'
+import { Message } from '../../system/message'
 
 import '../../styles/scss/pages/basic/forms.scss'
 
 const Login = () => {
-    const handleSubmit = values => (
-        localStorage.setItem('user-mail',values.email)
-
-        // axios.post('http://localhost:8080/login', values)
-        //     .then(resp => {
-        //         const { data } = resp
-        //         if(data.status === '200')
-        //         {
-        //             console.log(resp)
-        //             localStorage.setItem('user-mail',data.response.email)
-        //             history.push('/')
-        //         }
-        //     })
-    )
+    const handleSubmit = (values => {
+        System.post(POST_LOGIN, values, (data) => {
+            localStorage.setItem('user-token', data.token_access);
+            Message.showMessage("Logado com sucesso");
+        });
+    })
     
     const validations = yup.object().shape({
         email: yup.string().email().required(),
