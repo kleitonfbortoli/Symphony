@@ -3,6 +3,7 @@ import * as BsIcons from 'react-icons/bs'
 import * as AiIcons from 'react-icons/ai'
 import * as GiIcons from 'react-icons/gi'
 import * as IoIcons from 'react-icons/io'
+import * as BiIcons from 'react-icons/bi'
 
 export const SidebarData = [
     {
@@ -42,9 +43,15 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
-        title: 'Cadastro Tipo de nota',
+        title: 'Cadastro Tipo de Nota',
         path: '/cadastro-tipo-nota',
         icon: <IoIcons.IoMdOptions />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Cadastro Horário',
+        path: '/cadastro-horario',
+        icon: <BiIcons.BiTime />,
         cName: 'nav-text'
     }
     
