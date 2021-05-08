@@ -2,25 +2,22 @@ import React from 'react'
 
 import {ErrorMessage, Formik, Form, Field} from 'formik'
 import * as yup from 'yup'
-import axios from 'axios'
+
+import { System } from '../../system/system'
+import { Message } from '../../system/message'
+import { POST_CADASTRO_TIPO_NOTA } from '../../system/constants'
 
 import '../../styles/scss/pages/basic/forms.scss'
 
 const CadastroTipoNota = () => {
-    const handleSubmit = values => (
-        axios.post('http://localhost:8000/cadastro-tipo-nota', values)
-            .then(resp => {
-                console.log(resp)
-            })
-            .catch(error => {
-                console.log('Erro')
-                console.log(error)
-            })
-    )
+    const handleSubmit = (values => {
+        System.post(POST_CADASTRO_TIPO_NOTA, values, (data) => {
+            Message.showMessage("Tipo de nota salvo com sucesso");
+        });
+    });
     
     const validations = yup.object().shape({
-        descricao: yup.string().required(),
-        campo: yup.number().required()
+        descricao: yup.string().required()
     })
 
     return (
@@ -33,10 +30,6 @@ const CadastroTipoNota = () => {
                         <div className="field-group">
                             <Field name="descricao" className="field" placeholder="Descricao"/>
                             <ErrorMessage component="span" name="descricao" className="field-error"/>
-                        </div>
-                        <div className="field-group">
-                            <Field name="campo" className="field" placeholder="Campo"/>
-                            <ErrorMessage component="span" name="campo" className="field-error"/>
                         </div>
                         <button className="submit-button" type="submit">Salvar</button>
                     </Form>

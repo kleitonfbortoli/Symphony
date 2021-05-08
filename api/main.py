@@ -5,8 +5,17 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from service.basic.pessoa_service import PessoaService
+from service.basic.nota_service import NotaService
+from service.basic.periodo_service import PeriodoService
+from service.basic.tipo_nota_service import TipoNotaService
+from service.basic.serie_service import SerieService
+from service.basic.disciplina_service import DisciplinaService
+from service.basic.horario_service import HorarioService
+from service.basic.error_service import ErrorService
+from service.basic.auditoria_service import AuditoriaService
+from service.basic.modulo_service import ModuloService
+
 from service.login.session_service import SessionService
-from service.log.error import ErrorService
 from service.system.system_service import SystemService
 
 from constants.request_model import *
@@ -50,44 +59,165 @@ def recreateDatabase():
 def read_logina( data: RequestTest, request: Request):
     try:
         system = SystemService(data=data, request=request)
-        response = PessoaService.storePessoa(data=request);
+        system.validate_user()
+        response = PessoaService.storePessoa(data=data);
         return system.make_return_data(return_constants.STATUS_SUCCESS, response)
     except Exception as e:
-        return system.make_error_return(e);
+        return system.make_error_return(e)
 
 @app.get("/")
 def read_root():
-    return make_return_data(return_constants.STATUS_SUCCESS, {"Hello": "World"})
+    pass
+    # return make_return_data(return_constants.STATUS_SUCCESS, {"Hello": "World"})
 
 @app.post("/login")
 def read_login( data: RequestPostLogin, request: Request ):
     try:
-        token = SessionService.newLogin(email=data.email,password=data.password)
-        data.token = token
         system = SystemService(data=data, request=request)
-        return system.make_return_data(return_constants.STATUS_SUCCESS, data)
-    except LoginException as e:
-        print(e)
+        token_access = SessionService.newLogin(email=data.email,password=data.password)
+        system.token_access = token_access['token_access']
+        system.validate_user()
+        return system.make_return_data(return_constants.STATUS_SUCCESS, token_access)
     except Exception as e:
-        print(e)
-        # return system.make_error_return(e);
+        return system.make_error_return(e)
         
 
 @app.post("/cadastro-pessoa")
 def read_cadastro_pessoa( data: RequestPostCadastroPessoa, request: Request ):
     try:
         system = SystemService(data=data, request=request)
-        response = PessoaService.storePessoa(data=request);
+        system.validate_user()
+        response = PessoaService.storePessoa(data=data);
         return system.make_return_data(return_constants.STATUS_SUCCESS, response)
     except Exception as e:
-        return system.make_error_return(e);
+        return system.make_error_return(e)
         
 
 @app.post("/cadastro-disciplina")
 def read_cadastro_disciplina( data: RequestPostCadastroDisciplina, request: Request ):
     try:
         system = SystemService(data=data, request=request)
-        
-        # return system.make_return_data(return_constants.STATUS_SUCCESS, retorno)
+        system.validate_user()
+        response = DisciplinaService.store(data=data);
+        print(response)
+        return system.make_return_data(return_constants.STATUS_SUCCESS, response)
     except Exception as e:
-        return system.make_error_return(e);
+        return system.make_error_return(e)
+        
+@app.post("/cadastro-serie")
+def read_cadastro_serie( data: RequestPostCadastroSerie, request: Request ):
+    try:
+        system = SystemService(data=data, request=request)
+        system.validate_user()
+        response = SerieService.storeSerie(data=data);
+        return system.make_return_data(return_constants.STATUS_SUCCESS, response)
+    except Exception as e:
+        return system.make_error_return(e)
+        
+@app.post("/cadastro-periodo-academico")
+def read_cadastro_periodo( data: RequestPostCadastroPeriodoAcademico, request: Request ):
+    try:
+        system = SystemService(data=data, request=request)
+        system.validate_user()
+        response = PeriodoService.storePeriodo(data=data);
+        return system.make_return_data(return_constants.STATUS_SUCCESS, response)
+    except Exception as e:
+        return system.make_error_return(e)
+
+# @app.post("/cadastro-nota")
+# def read_cadastro_nota( data: RequestPostCadastroNota, request: Request ):
+#     try:
+#         system = SystemService(data=data, request=request)
+#         system.validate_user()
+#         response = NotaService.storeNota(data=data);
+#         return system.make_return_data(return_constants.STATUS_SUCCESS, response)
+#     except Exception as e:
+#         if 'system' in locals() :
+#             return system.make_error_return(e);
+#         else:
+#             return SystemService().make_default_error_returm(excecao=e, data=data, request=request)
+        
+@app.post("/cadastro-tipo-nota")
+def read_cadastro_tipo_nota( data: RequestPostCadastroTipoNota, request: Request ):
+    try:
+        system = SystemService(data=data, request=request)
+        system.validate_user()
+        response = TipoNotaService.storeTipoNota(data=data);
+        return system.make_return_data(return_constants.STATUS_SUCCESS, response)
+    except Exception as e:
+        return system.make_error_return(e)
+        
+@app.post("/cadastro-horario")
+def read_cadastro_horario( data: RequestPostCadastroHorario, request: Request ):
+    try:
+        system = SystemService(data=data, request=request)
+        system.validate_user()
+        response = HorarioService.storeHorario(data=data);
+        return system.make_return_data(return_constants.STATUS_SUCCESS, response)
+    except Exception as e:
+        return system.make_error_return(e)
+    
+@app.post("/cadastro-modulo")
+def read_cadastro_modulo( data: RequestPostCadastroModulo, request: Request ):
+    try:
+        system = SystemService(data=data, request=request)
+        system.validate_user()
+        response = ModuloService.storeModulo(data=data);
+        return system.make_return_data(return_constants.STATUS_SUCCESS, response)
+    except Exception as e:
+        return system.make_error_return(e)
+        
+@app.post("/pessoas-list")
+def get_pessoas_list( data: RequestPostPessoasList, request: Request ):
+    print('passo')
+    try:
+        system = SystemService(data=data, request=request)
+        system.validate_user()
+        response = PessoaService.getPessoasList(data=data);
+        return system.make_return_data(return_constants.STATUS_SUCCESS, response)
+    except Exception as e:
+        return system.make_error_return(e)
+    
+@app.post("/erros-list")
+def get_erros_list( data: RequestPostErrorList, request: Request ):
+    print('passo')
+    try:
+        system = SystemService(data=data, request=request)
+        system.validate_user()
+        response = ErrorService.getErrorList(data=data);
+        print(response)
+        return system.make_return_data(return_constants.STATUS_SUCCESS, response)
+    except Exception as e:
+        return system.make_error_return(e)
+    
+@app.post("/auditoria-list")
+def get_auditoria_list( data: RequestPostAuditoriaList, request: Request ):
+    print('passo')
+    try:
+        system = SystemService(data=data, request=request)
+        system.validate_user()
+        response = AuditoriaService.getAuditoriaList(data=data);
+        return system.make_return_data(return_constants.STATUS_SUCCESS, response)
+    except Exception as e:
+        return system.make_error_return(e)
+    
+@app.post("/get-permissions")
+def get_permissions(data: BaseRequestModel, request: Request ):
+    print('passo')
+    try:
+        system = SystemService(data=data, request=request)
+        system.validate_user()
+
+        response = [
+            'Home',
+            'Cadastro Pessoa',
+            'Cadastro Disciplina',
+            'Cadastro Série',
+            'Cadastro Período'
+        ]
+
+        return system.make_return_data(return_constants.STATUS_SUCCESS, response)
+    except Exception as e:
+        return system.make_error_return(e)
+    
+    
