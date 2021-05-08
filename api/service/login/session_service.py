@@ -30,11 +30,10 @@ class SessionService:
     def newLogin(email: str, password: str):
         token = SessionService.getNewTokenAccess();
         pessoa = PessoaService.getByEmailAndSenha(email, password)
-
         if pessoa is None:
             raise LoginException(message="Usuário ou senha incorretos")
         else:
             session = Session(ref_pessoa=pessoa,token=token)
             session.save()
-            return token
+            return { 'token_access': token}
         

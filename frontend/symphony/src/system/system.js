@@ -9,19 +9,19 @@ export class System
     {
         var url = BASIC_URL + method;
         var token = localStorage.getItem('user-token');
-        console.log(token);
-        if (token == null)
+        if (token === null)
         {
             token = " ";
         }
-
+        
         parameters.token_access = token;
-
+        
+        console.log(parameters);
         var retorno = axios.post(url, parameters)
         .then(resp => {
             const { data } = resp
             console.log(data);
-            if (data.status == '200')
+            if (data.status === '200')
             {
                 callback(data.response);
             }

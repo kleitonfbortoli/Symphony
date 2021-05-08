@@ -8,7 +8,7 @@ import { SidebarData } from './SidebarData.js'
 
 import '../styles/scss/navbar/navbar.scss'
 
-function NavBar() {
+function NavBar(parameters) {
     const [sidebar, setSidebar] = useState(false)
 
     const showSidebar = () => setSidebar(!sidebar)
@@ -27,12 +27,12 @@ function NavBar() {
                             <AiIcons.AiOutlineClose />
                         </Link>
                     </li>
-                    {SidebarData.map((item,index) => {
+                    {parameters.permission.map((value,index) => {
                         return (
-                            <li key={index} className={item.cName}>
-                                <Link to={item.path}>
-                                    {item.icon}
-                                    <span>{item.title}</span>
+                            <li key={index} className={SidebarData[value].cName}>
+                                <Link to={SidebarData[value].path}>
+                                    {SidebarData[value].icon}
+                                    <span>{SidebarData[value].title}</span>
                                 </Link>
                             </li>
                         )

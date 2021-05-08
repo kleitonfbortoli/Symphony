@@ -1,7 +1,9 @@
-from pydantic import BaseModel, ValidationError, validator
+from pydantic import BaseModel, ValidationError, validator, Json
 import re 
 import datetime
 from typing import Optional
+
+
 
 email_regex = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$"
 
@@ -78,3 +80,30 @@ class RequestPostCadastroPeriodoAcademico(BaseRequestModel):
     
 class RequestPostCadastroTipoNota(BaseRequestModel):
     descricao: str
+    
+class RequestPostCadastroHorario(BaseRequestModel):
+    descricao: str
+    dia_semana: str
+    turno: str
+    hora_ini: str
+    hora_fim: str
+    
+class RequestPostCadastroModulo(BaseRequestModel):
+    title: str
+    
+class BasicListRequest(BaseRequestModel):
+    page_number: int
+    page_size: int    
+class RequestPostPessoasList(BasicListRequest):
+    nome: Optional[str]
+    email: Optional[str]
+    
+class RequestPostErrorList(BasicListRequest):
+    error_message: Optional[str]
+    
+class RequestPostAuditoriaList(BasicListRequest):
+    api_name: Optional[str]
+    
+class RequestPostDisciplinaList(BasicListRequest):
+    pass
+    
