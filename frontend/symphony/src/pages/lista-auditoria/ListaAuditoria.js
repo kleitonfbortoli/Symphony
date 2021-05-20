@@ -4,6 +4,7 @@ import { POST_LIST_AUDITORIA } from '../../system/constants'
 import {Field} from 'formik'
 
 import '../../styles/scss/pages/basic/forms.scss'
+import * as FaIcons from 'react-icons/fa'
 
 
 const ListaAuditoria = () => {
@@ -14,7 +15,15 @@ const ListaAuditoria = () => {
                 <div className="field-group">
                     <Field name="api_name" className="field" placeholder="Nome da api"/>
                 </div>
-            </>
+        </>,
+        actions: [
+        {
+            path: 'auditoria-details',
+            icon: <FaIcons.FaSearch />,
+            // label: 'action teste',
+            parameters: '&teste=a'
+        }
+        ]
     }
 
     return <DataTable configurations={ configuraciones}/>

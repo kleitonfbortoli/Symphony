@@ -10,6 +10,16 @@ class PessoaService:
 
     @staticmethod
     @Symphony_Db.atomic()
+    def getPessoa(id: int):
+        pessoa = Pessoa.get(Pessoa.id == id)
+        return {
+            'nome':pessoa.nome,
+            'dt_nascimento':str(pessoa.dt_nascimento),
+            'email':pessoa.email
+        }
+
+    @staticmethod
+    @Symphony_Db.atomic()
     def storePessoa(data: BaseModel):
         DataBaseService.store(PessoaService.entity, data)
         return json.dumps(data.__dict__)
@@ -35,8 +45,6 @@ class PessoaService:
         
         select = select.paginate(data.page_number, data.page_size)
         
-        print(select)
-        
         return_data = []
         
         for pessoa in select.execute():
@@ -52,5 +60,5 @@ class PessoaService:
             'header': ['Nome','E-mail'],
             'body': return_data
         }
-        print(response)
+
         return response

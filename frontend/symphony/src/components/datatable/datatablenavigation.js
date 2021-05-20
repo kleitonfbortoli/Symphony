@@ -13,7 +13,7 @@ export default function DataTableNavigation(parameters) {
     return <>
         <tfoot className="footer">
             <tr>
-                <td className="row" colSpan={colspan}>{value.map((index) => <button type='button' className={ index == parameters.page_number ? 'index selected' : 'index'} onClick={parameters.change_function} value={index}>{index}</button>)}</td>
+                <td className="row" colSpan={colspan}>{value.map((index) => <button type='button' className={ index === parameters.page_number ? 'index selected' : 'index'} onClick={parameters.change_function} value={index}>{index}</button>)}</td>
             </tr>
         </tfoot>
     </>

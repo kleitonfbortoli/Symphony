@@ -9,6 +9,37 @@ class ErrorService:
 
     @staticmethod
     @Symphony_Db.atomic()
+    def getError(id: int):
+        error = Log_Error.get(Log_Error.id == id)
+        
+        return {
+            'id': str(error.id),
+            'time_error': str(error.time_error),
+            'error_message': str(error.error_message),
+            'ref_log_api': str(error.ref_log_api)
+        }
+    
+    @staticmethod
+    @Symphony_Db.atomic()
+    def getErrorByAuditoria(id_auditoria: int):
+        print()
+        try:
+            error = Log_Error.get(Log_Error.ref_log_api == id_auditoria)
+            return {
+                'id': str(error.id),
+                'time_error': str(error.time_error),
+                'error_message': str(error.error_message)
+            }
+        except:
+            return {
+                'id': str(),
+                'time_error': str(),
+                'error_message': str()
+            }
+    
+        
+    @staticmethod
+    @Symphony_Db.atomic()
     def getErrorList(data: RequestPostErrorList):
         select = Log_Error.select()
 
@@ -23,7 +54,10 @@ class ErrorService:
         
         for erro in select.execute():
             return_data.append(
-                [ erro.error_message, str(erro.time_error)]
+                {
+                    'data': [erro.error_message, str(erro.time_error)],
+                    'key': erro.id
+                }
             )
 
         response = {

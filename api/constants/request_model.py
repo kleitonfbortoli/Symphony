@@ -106,4 +106,11 @@ class RequestPostAuditoriaList(BasicListRequest):
     
 class RequestPostDisciplinaList(BasicListRequest):
     pass
+
+class RequestGetPessoa(BaseRequestModel):
+    id: int
+    
+class RequestGetLogDetail(BaseRequestModel):
+    ref_error_id: Optional[str]
+    ref_auditoria_id: Optional[str]
     

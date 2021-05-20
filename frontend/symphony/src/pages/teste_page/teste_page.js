@@ -3,10 +3,9 @@ import DataTable from '../../components/datatable/datatable'
 import { POST_LIST_PESSOA } from '../../system/constants'
 import {Field} from 'formik'
 import * as AiIcons from 'react-icons/ai'
-import CadastroNota from '../cadastro-nota'
 
 const teste_page = () => {
-    var configuraciones = {
+    let configuraciones = {
         page_size: 3,
         url: POST_LIST_PESSOA,
         form:
@@ -22,7 +21,9 @@ const teste_page = () => {
             {
                 path: 'cadastro-pessoa',
                 icon: <AiIcons.AiFillHome />,
-                label: 'action teste'
+                // title: 'action teste',
+                // parameters: '&teste=a'
+
             }
         ]
         

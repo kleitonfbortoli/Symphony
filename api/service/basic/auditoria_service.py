@@ -9,6 +9,20 @@ class AuditoriaService:
     
     @staticmethod
     @Symphony_Db.atomic()
+    def getAuditoria(id: int):
+        auditoria = Log_Api.get(Log_Api.id == id)
+        return {
+            'ref_session': str(auditoria.ref_session),
+            'api_name': str(auditoria.api_name),
+            'success': (auditoria.success and 'Sim' or 'Não'),
+            'input_data': str(auditoria.input_data),
+            'output_data': str(auditoria.output_data),
+            'start_time': str(auditoria.start_time),
+            'end_time': str(auditoria.end_time)
+        }
+    
+    @staticmethod
+    @Symphony_Db.atomic()
     def getAuditoriaList(data: RequestPostAuditoriaList):
         select = Log_Api.select()
 
@@ -19,18 +33,20 @@ class AuditoriaService:
         
         select = select.paginate(data.page_number, data.page_size)
         
-        print(select)
         
         return_data = []
         
         for log in select.execute():
             return_data.append(
-                [
-                    log.api_name,
-                    (log.success and 'Sim' or 'Não'),
-                    str(log.start_time),
-                    str(log.end_time)
-                ]
+                {
+                    'data': [
+                        log.api_name,
+                        (log.success and 'Sim' or 'Não'),
+                        str(log.start_time),
+                        str(log.end_time)
+                    ],
+                    'key': log.id
+                }
             )
 
         response = {
@@ -38,5 +54,4 @@ class AuditoriaService:
             'header': ['Api', 'Sucesso', 'Tempo de início', 'Tempo de fim'],
             'body': return_data
         }
-        print(response)
         return response

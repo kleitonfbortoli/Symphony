@@ -17,7 +17,9 @@ const CadastroModulo = () => {
     });
     
     const validations = yup.object().shape({
-        title: yup.string().required()
+        title: yup.string().required(),
+        path: yup.string().required(),
+        class_name: yup.string().required(),
     })
 
     return (
