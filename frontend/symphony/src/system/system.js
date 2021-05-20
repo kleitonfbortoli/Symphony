@@ -3,24 +3,47 @@ import { BASIC_URL } from './constants'
 
 export class System
 {
-    constructor() { }
-
     static post(method, parameters, callback)
     {
-        var url = BASIC_URL + method;
-        var token = localStorage.getItem('user-token');
+        let url = BASIC_URL + method;
+        let token = localStorage.getItem('user-token');
         if (token === null)
         {
             token = " ";
         }
         
         parameters.token_access = token;
-        
-        console.log(parameters);
-        var retorno = axios.post(url, parameters)
-        .then(resp => {
+        console.log(parameters)
+        axios.post(url, parameters)
+            .then(resp => {
+                const { data } = resp
+                if (data.status === '200') {
+                    callback(data.response);
+                }
+                else {
+                    alert('algo errado')
+                }
+            })
+            .catch(function (error)
+            {
+                alert('erro')
+            });
+    }
+
+    static get(method, parameters, callback)
+    {
+        let token = localStorage.getItem('user-token');
+        method = BASIC_URL + method;
+        method = method + "?token=" + token;
+        if (typeof(parameters) !== "undefined") {
+            for(var key in parameters) {
+                method = method + "&" + key + "=" + parameters[key];
+            }
+        }
+
+        axios.get(method)
+        .then((resp) => {
             const { data } = resp
-            console.log(data);
             if (data.status === '200')
             {
                 callback(data.response);
@@ -29,10 +52,7 @@ export class System
         .catch(function (error)
         {
             alert('erro')
-            console.log(error.error);
-        });
-
-        return retorno
+        })
     }
 
     static logout() {

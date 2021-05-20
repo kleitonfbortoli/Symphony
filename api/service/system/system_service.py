@@ -14,12 +14,12 @@ class SystemService:
     api_name = ""
     request = ''
     response = ''
-    session = Session
+    session = None
     start_time = ''
     end_time = ''
     success = True
     token_access = ''
-    log_api_id = int
+    log_api = Log_Api
     
     def __init__(self, data: BaseRequestModel, request: Request):
         self.url = str(request.url)
@@ -29,36 +29,43 @@ class SystemService:
         self.token_access = data.token_access
         
     def validate_user(self):
-        pass
-        # try:
-        #     # Verifica se a pessoa está logada e se a sessão é valida
-        #     session = SessionService.isLoged( token=data.token_access )
-        #     self.session = session
-        # except Exception as e:
-        #     raise LoginException("Usuário não econtrado");
+        try:
+            # Verifica se a pessoa está logada e se a sessão é valida
+            session = SessionService.isLoged( token=self.token_access )
+            self.session = session
+        except Exception as e:
+            raise LoginException("Usuário não econtrado");
     
     @Symphony_Db.atomic()
     def storeAudit(self):
-        log = Log_Api()
-        # log.ref_session = self.session
-        log.api_name = self.api_name
-        log.success = self.success
-        log.input_data = self.request
-        log.output_data = self.response
-        log.start_time = self.start_time
-        log.end_time = self.end_time
+        log = Log_Api(
+            api_name=self.api_name,
+            success=self.success,
+            input_data=self.request,
+            output_data=self.response,
+            start_time=self.start_time,
+            end_time = self.end_time
+        )
+        
+        if not self.session is None:
+            log.ref_session = self.session
+            
         log.save()
         self.log_api = log
     
     @Symphony_Db.atomic()
     def storeErrorLog(self, error: Exception):
-        log = Log_Error()
-        # log.ref_session = self.session
-        log.ref_log_api = self.log_api
-        log.time_error = str(datetime.datetime.now())
-        log.error_message = str(error)
-        a = log.save()
-        print(log.id)
+        print(error)
+        log = Log_Error(
+            ref_log_api = self.log_api,
+            time_error = str(datetime.datetime.now()),
+            error_message = str(error)
+        )
+
+        if not self.session is None:
+            log.ref_session = self.session
+
+        log.save()
 
     
     def make_return_data(self, status, response):
@@ -76,27 +83,4 @@ class SystemService:
         
         self.storeAudit();
         self.storeErrorLog(e)
-        
-        return {"status": return_constants.STATUS_INTERNAL_ERROR, 'message' : str(e) }        
-        
-    def convertToJson(self, object):
-        retorno = ''
-
-        if isinstance(object, BaseRequestModel):
-            retorno = object.json()
-        elif self.is_json(object):
-            retorno = object
-        else:
-            retorno = json.dumps(object.__dict__)
-            
-        return retorno
-    
-    def is_json(self, x) :
-        try:
-            print(x)
-            json.loads(x)
-            return True
-        except:
-            return False
-
-        return True
+        return {"status": return_constants.STATUS_INTERNAL_ERROR, 'message' : str(e) }

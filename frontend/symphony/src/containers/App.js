@@ -5,7 +5,6 @@ import NavBar from '../components/NavBar.js'
 
 import './App.css';
 import {history} from '../components/history'
-import { Message } from '../system/message'
 import { System } from '../system/system'
 import { POST_GET_PERMISSION } from '../system/constants'
 

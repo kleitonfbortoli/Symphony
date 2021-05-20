@@ -11,6 +11,7 @@ import '../../styles/scss/pages/basic/forms.scss'
 
 const Login = () => {
     const handleSubmit = (values => {
+
         System.post(POST_LOGIN, values, (data) => {
             localStorage.setItem('user-token', data.token_access);
             Message.showMessage("Logado com sucesso");
@@ -27,7 +28,7 @@ const Login = () => {
             <div className="form">
                 <h1 className="form-title">Login</h1>
                 <p className="form-subtitle">Preencha os campos para continuar</p>
-                <Formik initialValues={{}} onSubmit={handleSubmit} validationSchema={validations}>
+                <Formik initialValues={{email:'',password:''}} onSubmit={handleSubmit} validationSchema={validations}>
                     <Form className="form-body">
                         <div className="field-group">
                             <Field name="email" className="field"/>

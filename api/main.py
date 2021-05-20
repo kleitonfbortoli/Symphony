@@ -76,7 +76,6 @@ def read_login( data: RequestPostLogin, request: Request ):
         system = SystemService(data=data, request=request)
         token_access = SessionService.newLogin(email=data.email,password=data.password)
         system.token_access = token_access['token_access']
-        system.validate_user()
         return system.make_return_data(return_constants.STATUS_SUCCESS, token_access)
     except Exception as e:
         return system.make_error_return(e)
@@ -203,7 +202,6 @@ def get_auditoria_list( data: RequestPostAuditoriaList, request: Request ):
     
 @app.post("/get-permissions")
 def get_permissions(data: BaseRequestModel, request: Request ):
-    print('passo')
     try:
         system = SystemService(data=data, request=request)
         system.validate_user()
@@ -213,11 +211,52 @@ def get_permissions(data: BaseRequestModel, request: Request ):
             'Cadastro Pessoa',
             'Cadastro Disciplina',
             'Cadastro Série',
-            'Cadastro Período'
+            'Cadastro Período',
+            'Cadastro Nota',
+            'Cadastro Tipo de Nota',
+            'Cadastro Horário',
+            'Cadastro Módulo',
+            'Erros',
+            'Auditoria'
         ]
 
         return system.make_return_data(return_constants.STATUS_SUCCESS, response)
     except Exception as e:
         return system.make_error_return(e)
     
+@app.get("/get-pessoa")
+def get_pessoa(data: RequestGetPessoa, request: Request):
+    system = SystemService(data=data, request=request)
+    system.validate_user()
+    return system.make_return_data(return_constants.STATUS_SUCCESS, {})
     
+@app.post("/get-log-detail")
+def get_log_detail(data: RequestGetLogDetail, request: Request):
+    try:
+        system = SystemService(data=data, request=request)
+        system.validate_user()
+        
+
+        if not data.ref_error_id is None:
+            erro = ErrorService.getError(data.ref_error_id)
+            auditoria = AuditoriaService.getAuditoria(erro['ref_log_api'])
+            session = SessionService.getSession(auditoria['ref_session'])
+            pessoa = PessoaService.getPessoa(session['ref_pessoa'])
+        elif not data.ref_auditoria_id is None:
+            auditoria = AuditoriaService.getAuditoria(data.ref_auditoria_id)
+            erro = ErrorService.getErrorByAuditoria(data.ref_auditoria_id)
+            session = SessionService.getSession(auditoria['ref_session'])
+            pessoa = PessoaService.getPessoa(session['ref_pessoa'])
+        else:
+            raise Exception("Ou o id de erro ou log deve ser informado")
+        
+        retorno = {
+            'auditoria': auditoria,
+            'erro': erro,
+            'session': session,
+            'pessoa': pessoa
+        }
+        print(retorno)
+        return system.make_return_data(return_constants.STATUS_SUCCESS, retorno)
+    except Exception as e:
+        return system.make_error_return(e)

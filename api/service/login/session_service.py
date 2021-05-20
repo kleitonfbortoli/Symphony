@@ -6,6 +6,19 @@ from service.basic.pessoa_service import PessoaService
 from exceptions.SymphonyException import LoginException,ForbidenException
 
 class SessionService:
+    
+    @staticmethod
+    @Symphony_Db.atomic()
+    def getSession(id: int):
+        session = Session.get(Session.id == id)
+        
+        return {
+            'access_time': str(session.access_time),
+            'logout_time': str(session.logout_time),
+            'ref_pessoa': str(session.ref_pessoa),
+        }
+        
+    
     @staticmethod
     def getNewTokenAccess():
         uuid = str(uuid4())
@@ -16,10 +29,11 @@ class SessionService:
         return token
     
     @staticmethod
+    @Symphony_Db.atomic()
     def isLoged(token):
         date = datetime.now() - timedelta(hours = 3)
-        session = Session.select().where(Session.token == token, Session.access_time >= date, Session.logout_time.is_null()).first()
-
+        # session = Session.select().where(Session.token == token, Session.access_time >= date, Session.logout_time.is_null()).first()
+        session = Session.select().where(Session.token == token).first()
         if session is None:
             raise ForbidenException(message="Usuário não logado")
         else:
