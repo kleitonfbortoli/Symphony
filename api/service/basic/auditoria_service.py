@@ -2,7 +2,7 @@ import json
 from pydantic import BaseModel
 from database.symphony_db import Symphony_Db, Log_Api
 from service.database.database_service import DataBaseService
-from constants.request_model import *
+from constants.request_model import RequestPostAuditoriaList
 
 class AuditoriaService:
     entity = Log_Api
