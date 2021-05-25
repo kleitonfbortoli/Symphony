@@ -2,7 +2,7 @@ import json
 from pydantic import BaseModel
 from database.symphony_db import Symphony_Db, Log_Error
 from service.database.database_service import DataBaseService
-from constants.request_model import *
+from constants.request_model import RequestPostErrorList
 
 class ErrorService:
     entity = Log_Error

@@ -91,6 +91,9 @@ class RequestPostCadastroHorario(BaseRequestModel):
 class RequestPostCadastroModulo(BaseRequestModel):
     title: str
     
+class RequestPostCadastroGrupo(BaseRequestModel):
+    descricao: str
+    
 class BasicListRequest(BaseRequestModel):
     page_number: int
     page_size: int    
@@ -105,7 +108,28 @@ class RequestPostAuditoriaList(BasicListRequest):
     api_name: Optional[str]
     
 class RequestPostDisciplinaList(BasicListRequest):
-    pass
+    nome: Optional[str]
+
+class RequestPostSerieList(BasicListRequest):
+    nome: Optional[str]
+    ch_total: Optional[int]
+
+class RequestPostPeriodoAcademicoList(BasicListRequest):
+    descricao: Optional[str]
+
+class RequestPostTipoNotaList(BasicListRequest):
+    descricao: Optional[str]
+
+class RequestPostHorarioList(BasicListRequest):
+    descricao: Optional[str]
+    dia_semana: Optional[str]
+    turno: Optional[str]
+
+class RequestPostModuloList(BasicListRequest):
+    title: Optional[str]
+    
+class RequestPostGrupoList(BasicListRequest):
+    descricao: Optional[str]
 
 class RequestGetPessoa(BaseRequestModel):
     id: int

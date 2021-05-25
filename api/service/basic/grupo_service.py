@@ -1,25 +1,25 @@
 import json
 from pydantic import BaseModel
-from database.symphony_db import Symphony_Db, Disciplina
+from database.symphony_db import Symphony_Db, Grupo
 from service.database.database_service import DataBaseService
-from constants.request_model import RequestPostDisciplinaList
+from constants.request_model import RequestPostGrupoList
 
-class DisciplinaService:
-    entity = Disciplina
-    
+class GrupoService:
+    entity = Grupo
+   
     @staticmethod
     @Symphony_Db.atomic()
-    def store(data: BaseModel):
-        DataBaseService.store(DisciplinaService.entity, data)
+    def storeGrupo(data: BaseModel):
+        DataBaseService.store(GrupoService.entity, data)
         return json.dumps(data.__dict__)
     
     @staticmethod
     @Symphony_Db.atomic()
-    def list(data: RequestPostDisciplinaList):
-        select = Disciplina.select()
+    def list(data: RequestPostGrupoList):
+        select = Grupo.select()
 
-        if data.nome != '' and data.nome != None:
-            select = select.where(Disciplina.nome ** ( "%"+str(data.nome)+"%") )
+        if data.descricao != '' and data.descricao != None:
+            select = select.where(Grupo.descricao ** ( "%"+str(data.descricao)+"%") )
         
         count_results = select.count()
         
@@ -29,12 +29,12 @@ class DisciplinaService:
         
         for result in select.execute():
             return_data.append(
-                [ result.nome, str(result.ch)]
+                [ result.descricao]
             )
 
         response = {
             'count_results': count_results,
-            'header': ['Nome','Carga Horária'],
+            'header': ['Descrição'],
             'body': return_data
         }
         return response
