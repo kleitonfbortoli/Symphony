@@ -9,6 +9,12 @@ class ErrorService:
 
     @staticmethod
     @Symphony_Db.atomic()
+    def get(id: int):
+        entity = Log_Error.get(Log_Error.id == id)
+        return entity.__data__
+
+    @staticmethod
+    @Symphony_Db.atomic()
     def getError(id: int):
         error = Log_Error.get(Log_Error.id == id)
         

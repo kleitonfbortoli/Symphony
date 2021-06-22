@@ -6,12 +6,27 @@ from constants.request_model import RequestPostGrupoList
 
 class GrupoService:
     entity = Grupo
+
+    @staticmethod
+    @Symphony_Db.atomic()
+    def get(id: int):
+        entity = Grupo.get(Grupo.id == id)
+        return entity.__data__
    
     @staticmethod
     @Symphony_Db.atomic()
     def storeGrupo(data: BaseModel):
         DataBaseService.store(GrupoService.entity, data)
         return json.dumps(data.__dict__)
+    
+    @staticmethod
+    @Symphony_Db.atomic()
+    def get(id: int):
+        grupo = Grupo.get(Grupo.id == id)
+        return {
+            'id':grupo.id,
+            'descricao':grupo.descricao,
+        }
     
     @staticmethod
     @Symphony_Db.atomic()
@@ -29,7 +44,10 @@ class GrupoService:
         
         for result in select.execute():
             return_data.append(
-                [ result.descricao]
+                {
+                    'data': [ result.descricao ],
+                    'key': result.id
+                }
             )
 
         response = {

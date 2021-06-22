@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {ErrorMessage, Formik, Form, Field} from 'formik'
 import * as yup from 'yup'
 
 import { System } from '../../system/system'
 import { Message } from '../../system/message'
-import { POST_CADASTRO_PESSOA, GET_CADASTRO_PESSOA  } from '../../system/constants'
+import { POST_CADASTRO_PESSOA, POST_GET_CADASTRO_PESSOA  } from '../../system/constants'
 import { useLocation } from "react-router-dom";
 
 import '../../styles/scss/pages/basic/forms.scss'
 
 function useQuery() {
-  return new URLSearchParams(useLocation().search);
+    return new URLSearchParams(useLocation().search);
 }
 
 const CadastroPessoa = () => {
@@ -19,14 +19,26 @@ const CadastroPessoa = () => {
 
     let key = query.get("key");
 
-    const [initialvalues, setInitialValues] = useState({})
+    useEffect(() => {
+        if (key != null) {
+            let parameters = { id: key }
+            System.post(POST_GET_CADASTRO_PESSOA, parameters, (data) => { setInitialValues(data)});
+        }
+    }, [])
 
-    if (key != null) {
-        let parameters = {id: key}
-        System.get(GET_CADASTRO_PESSOA, parameters, (data) => {setInitialValues(data)});
-    }
+    const [initialvalues, setInitialValues] = useState({
+        email:'',
+        nome:'',
+        dt_nascimento:'',
+        password:''
+    })
 
     const handleSubmit = (values => {
+        if (key != null)
+        {
+            values.id = key;
+        }
+
         System.post(POST_CADASTRO_PESSOA, values, (data) => {
             Message.showMessage("Usuário salvo com sucesso");
         });
@@ -44,7 +56,7 @@ const CadastroPessoa = () => {
             <div className="form">
                 <h1 className="form-title">Cadastro Pessoa</h1>
                 <p className="form-subtitle">Preencha os campos para continuar</p>
-                <Formik initialValues={ initialvalues} onSubmit={handleSubmit} validationSchema={validations}>
+                <Formik enableReinitialize={true} initialValues={ initialvalues} onSubmit={handleSubmit} validationSchema={validations}>
                     <Form className="form-body">
                         <div className="field-group">
                             <Field name="nome" className="field" placeholder="Nome"/>

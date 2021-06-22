@@ -6,6 +6,12 @@ from constants.request_model import *
 
 class ModuloService:
     entity = Modulo
+
+    @staticmethod
+    @Symphony_Db.atomic()
+    def get(id: int):
+        entity = Modulo.get(Modulo.id == id)
+        return entity.__data__
    
     @staticmethod
     @Symphony_Db.atomic()
@@ -29,7 +35,10 @@ class ModuloService:
         
         for result in select.execute():
             return_data.append(
-                [ result.title]
+                {
+                    'data': [result.title],
+                    'key': result.id                    
+                }
             )
 
         response = {

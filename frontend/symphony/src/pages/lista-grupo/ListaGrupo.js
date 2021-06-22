@@ -11,6 +11,7 @@ const ListaGrupo = () => {
     var configuraciones = {
         page_size: 50,
         url: POST_LIST_GRUPO,
+        url_cadastro: 'cadastro-grupo',
         form: <>
                 <div className="field-group">
                     <Field name="descricao" className="field" placeholder="Descrição"/>
@@ -18,10 +19,9 @@ const ListaGrupo = () => {
         </>,
         actions: [
         {
-            path: 'grupo-details',
-            icon: <FaIcons.FaSearch />,
-            // label: 'action teste',
-            parameters: '&teste=a'
+            path: 'cadastro-grupo',
+                icon: <FaIcons.FaSearch />,
+            color: 'green'
         }
         ]
     }

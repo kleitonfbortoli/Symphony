@@ -6,12 +6,28 @@ from constants.request_model import RequestPostDisciplinaList
 
 class DisciplinaService:
     entity = Disciplina
+
+    @staticmethod
+    @Symphony_Db.atomic()
+    def get(id: int):
+        entity = Disciplina.get(Disciplina.id == id)
+        return entity.__data__
     
     @staticmethod
     @Symphony_Db.atomic()
     def store(data: BaseModel):
         DataBaseService.store(DisciplinaService.entity, data)
         return json.dumps(data.__dict__)
+
+    @staticmethod
+    @Symphony_Db.atomic()
+    def get(id: int):
+        disciplina = Disciplina.get(Disciplina.id == id)
+        return {
+            'id':disciplina.id,
+            'nome':disciplina.nome,
+            'ch':disciplina.ch,
+        }
     
     @staticmethod
     @Symphony_Db.atomic()
@@ -29,7 +45,11 @@ class DisciplinaService:
         
         for result in select.execute():
             return_data.append(
-                [ result.nome, str(result.ch)]
+                {
+                    'data': [ result.nome, str(result.ch)],
+                    'key': result.id
+                    
+                }
             )
 
         response = {

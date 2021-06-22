@@ -1,16 +1,17 @@
 import React from 'react'
 import DataTable from '../../components/datatable/datatable'
-import { POST_LIST_PERIODO_ACADEMICO } from '../../system/constants'
+import { POST_LIST_PERIODO } from '../../system/constants'
 import {Field} from 'formik'
 
 import '../../styles/scss/pages/basic/forms.scss'
 import * as FaIcons from 'react-icons/fa'
 
 
-const ListaPeriodoAcademico = () => {
+const ListaPeriodo = () => {
     var configuraciones = {
         page_size: 50,
-        url: POST_LIST_PERIODO_ACADEMICO,
+        url: POST_LIST_PERIODO,
+        url_cadastro: 'cadastro-periodo',
         form: <>
                 <div className="field-group">
                     <Field name="descricao" className="field" placeholder="Descrição"/>
@@ -18,10 +19,9 @@ const ListaPeriodoAcademico = () => {
         </>,
         actions: [
         {
-            path: 'periodo-details',
+            path: 'cadastro-periodo',
             icon: <FaIcons.FaSearch />,
-            // label: 'action teste',
-            parameters: '&teste=a'
+            color: 'green'
         }
         ]
     }
@@ -29,4 +29,4 @@ const ListaPeriodoAcademico = () => {
     return <DataTable configurations={ configuraciones}/>
 }
 
-export default ListaPeriodoAcademico
+export default ListaPeriodo

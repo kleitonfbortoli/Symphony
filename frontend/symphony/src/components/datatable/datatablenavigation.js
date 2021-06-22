@@ -8,7 +8,15 @@ export default function DataTableNavigation(parameters) {
         value.push(index);
     }
 
-    let colspan = parameters.data.header.length + parameters.configurations.actions.length
+    let colspan;
+    if (typeof parameters.configurations.actions !== 'undefined')
+    {
+        colspan = parameters.data.header.length + parameters.configurations.actions.length
+    }
+    else
+    {
+        colspan = parameters.data.header.length
+    }
 
     return <>
         <tfoot className="footer">

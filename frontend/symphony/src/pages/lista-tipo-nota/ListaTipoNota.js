@@ -11,6 +11,7 @@ const ListaTipoNota = () => {
     var configuraciones = {
         page_size: 50,
         url: POST_LIST_TIPO_NOTA,
+        url_cadastro: 'cadastro-tipo-nota',
         form: <>
                 <div className="field-group">
                     <Field name="descricao" className="field" placeholder="Descrição"/>
@@ -18,10 +19,9 @@ const ListaTipoNota = () => {
         </>,
         actions: [
         {
-            path: 'tipo-nota-details',
+            path: 'cadastro-tipo-nota',
             icon: <FaIcons.FaSearch />,
-            // label: 'action teste',
-            parameters: '&teste=a'
+            color: 'green'
         }
         ]
     }

@@ -13,7 +13,7 @@ services:
         build: ./images_devel/database
         networks:
             - my_net
-        restart: always
+              #    restart: always
         environment:  
             POSTGRES_PASSWORD: postgres  
             POSTGRES_DB: postgres
@@ -30,12 +30,12 @@ services:
           - 3000:3000
         working_dir: /app
         command: 'npm start'
-        restart: always
+        #        restart: always
     database:
         build: ./images_devel/database
         networks:
             - my_net
-        restart: always
+              #        restart: always
         environment:  
             POSTGRES_PASSWORD: postgres  
             POSTGRES_DB: postgres
@@ -52,7 +52,7 @@ services:
           - 3000:3000
         working_dir: /app
         command: 'npm start'
-        restart: always
+        #        restart: always
 networks:
   my_net:
     driver: bridge

@@ -6,6 +6,12 @@ from constants.request_model import RequestPostAuditoriaList
 
 class AuditoriaService:
     entity = Log_Api
+
+    @staticmethod
+    @Symphony_Db.atomic()
+    def get(id: int):
+        entity = Log_Api.get(Log_Api.id == id)
+        return entity.__data__
     
     @staticmethod
     @Symphony_Db.atomic()

@@ -5,6 +5,11 @@ from service.database.database_service import DataBaseService
 
 class ModuloGrupoService:
     entity = Modulo_Grupo
+    @staticmethod
+    @Symphony_Db.atomic()
+    def get(id: int):
+        entity = Modulo_Grupo.get(Modulo_Grupo.id == id)
+        return entity.__data__
     
     @staticmethod
     @Symphony_Db.atomic()

@@ -13,8 +13,6 @@ const App = () => {
 
     const [permiss, setPermissiom] = useState([])
 
-    
-
     useEffect(() => {
         System.post(POST_GET_PERMISSION, {}, (data) => {
           setPermissiom(data)

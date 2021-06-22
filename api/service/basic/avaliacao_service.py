@@ -8,6 +8,12 @@ class AvaliacaoService:
     
     @staticmethod
     @Symphony_Db.atomic()
+    def get(id: int):
+        entity = Avaliacao.get(Avaliacao.id == id)
+        return entity.__data__
+    
+    @staticmethod
+    @Symphony_Db.atomic()
     def store(data: BaseModel):
         DataBaseService.store(AvaliacaoService.entity, data)
         return json.dumps(data.__dict__)

@@ -8,6 +8,12 @@ class TipoNotaService:
 
     @staticmethod
     @Symphony_Db.atomic()
+    def get(id: int):
+        entity = Tipo_Nota.get(Tipo_Nota.id == id)
+        return entity.__data__
+
+    @staticmethod
+    @Symphony_Db.atomic()
     def storeTipoNota(data: BaseModel):
         DataBaseService.store(TipoNotaService.entity, data)
         return json.dumps(data.__dict__)
@@ -28,7 +34,10 @@ class TipoNotaService:
         
         for result in select.execute():
             return_data.append(
-                [ result.descricao]
+                {
+                    'data':[ result.descricao],
+                    'key': result.id
+                }
             )
 
         response = {
@@ -37,3 +46,21 @@ class TipoNotaService:
             'body': return_data
         }
         return response
+    
+    @staticmethod
+    @Symphony_Db.atomic()
+    def getAll():
+        select = Tipo_Nota.select()
+
+        return_data = []
+        
+        for result in select.execute():
+            return_data.append(
+                {
+                    'label': result.descricao,
+                    'key': result.id
+                }
+                
+            )
+
+        return return_data
