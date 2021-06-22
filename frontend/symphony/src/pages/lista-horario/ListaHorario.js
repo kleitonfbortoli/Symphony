@@ -11,6 +11,7 @@ const ListaHorario = () => {
     var configuraciones = {
         page_size: 50,
         url: POST_LIST_HORARIO,
+        url_cadastro: 'cadastro-horario',
         form: <>
                 <div className="field-group">
                     <Field name="descricao" className="field" placeholder="Descrição"/>
@@ -18,10 +19,9 @@ const ListaHorario = () => {
         </>,
         actions: [
         {
-            path: 'horario-details',
+            path: 'cadastro-horario',
             icon: <FaIcons.FaSearch />,
-            // label: 'action teste',
-            parameters: '&teste=a'
+            color: 'green'
         }
         ]
     }

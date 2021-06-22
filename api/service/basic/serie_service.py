@@ -5,6 +5,12 @@ from service.database.database_service import DataBaseService
 from constants.request_model import *
 class SerieService:
     entity = Serie
+
+    @staticmethod
+    @Symphony_Db.atomic()
+    def get(id: int):
+        entity = Serie.get(Serie.id == id)
+        return entity.__data__
     
     @staticmethod
     @Symphony_Db.atomic()
@@ -31,7 +37,10 @@ class SerieService:
         
         for result in select.execute():
             return_data.append(
-                [ result.nome, str(result.ch_total)]
+                {
+                    'data': [ result.nome, str(result.ch_total)],
+                    'key': result.id
+                }
             )
 
         response = {
@@ -40,3 +49,21 @@ class SerieService:
             'body': return_data
         }
         return response
+    
+    @staticmethod
+    @Symphony_Db.atomic()
+    def getAll():
+        select = Serie.select()
+
+        return_data = []
+        
+        for result in select.execute():
+            return_data.append(
+                {
+                    'label': result.nome,
+                    'key': result.id
+                }
+                
+            )
+
+        return return_data

@@ -11,6 +11,7 @@ const ListaModulo = () => {
     var configuraciones = {
         page_size: 50,
         url: POST_LIST_MODULO,
+        url_cadastro: 'cadastro-modulo',
         form: <>
                 <div className="field-group">
                     <Field name="descricao" className="field" placeholder="Descrição"/>
@@ -18,10 +19,9 @@ const ListaModulo = () => {
         </>,
         actions: [
         {
-            path: 'modulo-details',
+            path: 'cadastro-modulo',
             icon: <FaIcons.FaSearch />,
-            // label: 'action teste',
-            parameters: '&teste=a'
+            color: 'green'
         }
         ]
     }

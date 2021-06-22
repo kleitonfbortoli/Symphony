@@ -50,6 +50,15 @@
                 font-size: 20px;
                 text-align: left;
 
+                &.icon {
+                    width: 30px;
+                }
+
+                .action-button {
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
             }
             tr {
                 &:hover {

@@ -12,8 +12,10 @@ export class System
             token = " ";
         }
         
+        // console.log(url);
+        // console.log(parameters);
+
         parameters.token_access = token;
-        console.log(parameters)
         axios.post(url, parameters)
             .then(resp => {
                 const { data } = resp

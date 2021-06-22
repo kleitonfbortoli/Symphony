@@ -1,17 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {ErrorMessage, Formik, Form, Field} from 'formik'
 import * as yup from 'yup'
 
 import { System } from '../../system/system'
 import { Message } from '../../system/message'
-import { POST_CADASTRO_PERIODO_ACADEMICO } from '../../system/constants'
+import { POST_CADASTRO_PERIODO, POST_GET_CADASTRO_PERIODO } from '../../system/constants'
+import { useLocation } from "react-router-dom";
 
 import '../../styles/scss/pages/basic/forms.scss'
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
+
 const CadastroPeriodo = () => {
+    let query = useQuery();
+
+    let key = query.get("key");
+
+    useEffect(() => {
+        if (key != null) {
+            let parameters = { id: key }
+            System.post(POST_GET_CADASTRO_PERIODO, parameters, (data) => { setInitialValues(data)});
+        }
+    }, [])
+
+    const [initialvalues, setInitialValues] = useState({
+        descricao:'',
+        dt_inicio:'',
+        dt_fim:''
+    })
+
     const handleSubmit = (values => {
-        System.post(POST_CADASTRO_PERIODO_ACADEMICO, values, (data) => {
+        if (key != null)
+        {
+            values.id = key;
+        }
+
+        System.post(POST_CADASTRO_PERIODO, values, (data) => {
             Message.showMessage("Período Acadêmico salvo com sucesso!");
         });
     });

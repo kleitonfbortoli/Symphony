@@ -11,18 +11,18 @@ const ListaDisciplina = () => {
     var configuraciones = {
         page_size: 50,
         url: POST_LIST_DISCIPLINA,
+        url_cadastro: 'cadastro-disciplina',
         form: <>
                 <div className="field-group">
                     <Field name="descricao" className="field" placeholder="Descrição"/>
                 </div>
         </>,
         actions: [
-        {
-            path: 'disciplina-details',
-            icon: <FaIcons.FaSearch />,
-            // label: 'action teste',
-            parameters: '&teste=a'
-        }
+            {
+                path: 'cadastro-disciplina',
+                icon: <FaIcons.FaSearch />,
+                color: 'green'
+            }
         ]
     }
 

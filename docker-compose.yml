@@ -8,13 +8,13 @@ services:
             - ./api:/app
         ports:
             - 8080:80
-        restart: always
+        restart: no
 
     database:
         image: postgres:latest
         networks:
             - my_net
-        restart: always
+        restart: no
         environment:  
             POSTGRES_PASSWORD: postgres  
             POSTGRES_DB: postgres

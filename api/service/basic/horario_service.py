@@ -8,9 +8,28 @@ class HorarioService:
 
     @staticmethod
     @Symphony_Db.atomic()
+    def get(id: int):
+        entity = Horario.get(Horario.id == id)
+        return entity.__data__
+    
+    @staticmethod
+    @Symphony_Db.atomic()
     def storeHorario(data: BaseModel):
         DataBaseService.store(HorarioService.entity, data)
         return json.dumps(data.__dict__)
+    
+    @staticmethod
+    @Symphony_Db.atomic()
+    def get(id: int):
+        horario = Horario.get(Horario.id == id)
+        return {
+            'id':horario.id,
+            'descricao':horario.descricao,
+            'dia_semana':str(horario.dia_semana),
+            'turno':horario.turno,
+            'hora_ini':horario.hora_ini,
+            'hora_fim':horario.hora_fim
+        }
     
     @staticmethod
     @Symphony_Db.atomic()
@@ -34,7 +53,11 @@ class HorarioService:
         
         for result in select.execute():
             return_data.append(
-                [ result.descricao, result.dia_semana, result.turno, result.hora_ini, result.hora_fim]
+                {
+                    'data': [result.descricao, result.dia_semana, result.turno, result.hora_ini, result.hora_fim],
+                    'key': result.id
+                    
+                }
             )
 
         response = {

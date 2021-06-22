@@ -17,12 +17,11 @@ const ListaAuditoria = () => {
                 </div>
         </>,
         actions: [
-        {
-            path: 'auditoria-details',
-            icon: <FaIcons.FaSearch />,
-            // label: 'action teste',
-            parameters: '&teste=a'
-        }
+            {
+                path: 'auditoria-details',
+                icon: <FaIcons.FaSearch />,
+                color: 'green'   
+            }
         ]
     }
 

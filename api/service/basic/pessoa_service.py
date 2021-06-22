@@ -10,18 +10,15 @@ class PessoaService:
 
     @staticmethod
     @Symphony_Db.atomic()
-    def getPessoa(id: int):
-        pessoa = Pessoa.get(Pessoa.id == id)
-        return {
-            'nome':pessoa.nome,
-            'dt_nascimento':str(pessoa.dt_nascimento),
-            'email':pessoa.email
-        }
+    def get(id: int):
+        entity = Pessoa.get(Pessoa.id == id)
+        return entity.__data__
 
     @staticmethod
     @Symphony_Db.atomic()
     def storePessoa(data: BaseModel):
         DataBaseService.store(PessoaService.entity, data)
+        print(data)
         return json.dumps(data.__dict__)
 
     @staticmethod
@@ -32,7 +29,7 @@ class PessoaService:
 
     @staticmethod
     @Symphony_Db.atomic()
-    def getPessoasList(data: RequestPostPessoasList):
+    def getsList(data: RequestPostPessoasList):
         select = Pessoa.select()
 
         if data.nome != '' and data.nome != None:

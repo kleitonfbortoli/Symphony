@@ -1,3 +1,4 @@
+import json
 from peewee import Model
 from pydantic import BaseModel
 from database.symphony_db import *
@@ -10,13 +11,11 @@ class DataBaseService:
         try:
             json_data = DataBaseService.convertBaseModelToJson(data)
             if(json_data['id']):
-                print('update')
-                entity.update(**json_data).where(entity.id == json_data['id']).execute()
+                json_data.pop('token_access')
+                entity.update(json_data).where(entity.id == json_data['id']).execute()
             else:
-                print('insert')
                 entity.create(**json_data)
         except Exception as e:
-            print('erro')
             print(str(e))
             
     @staticmethod

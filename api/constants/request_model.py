@@ -73,7 +73,7 @@ class RequestPostCadastroSerie(BaseRequestModel):
     nome: str
     ch_total: str
     
-class RequestPostCadastroPeriodoAcademico(BaseRequestModel):
+class RequestPostCadastroPeriodo(BaseRequestModel):
     descricao: str
     dt_inicio: str
     dt_final: str
@@ -93,7 +93,16 @@ class RequestPostCadastroModulo(BaseRequestModel):
     
 class RequestPostCadastroGrupo(BaseRequestModel):
     descricao: str
-    
+class RequestPostCadastroTurma(BaseRequestModel):
+    descricao: str
+    ref_serie: str
+    ref_periodo: str
+
+class RequestPostCadastroNota(BaseRequestModel):
+    descricao: str
+    ordem: int
+    ref_serie: int
+    ref_tipoNota: int
 class BasicListRequest(BaseRequestModel):
     page_number: int
     page_size: int    
@@ -114,7 +123,7 @@ class RequestPostSerieList(BasicListRequest):
     nome: Optional[str]
     ch_total: Optional[int]
 
-class RequestPostPeriodoAcademicoList(BasicListRequest):
+class RequestPostPeriodoList(BasicListRequest):
     descricao: Optional[str]
 
 class RequestPostTipoNotaList(BasicListRequest):
@@ -131,10 +140,90 @@ class RequestPostModuloList(BasicListRequest):
 class RequestPostGrupoList(BasicListRequest):
     descricao: Optional[str]
 
-class RequestGetPessoa(BaseRequestModel):
+class RequestgetEntity(BaseRequestModel):
     id: int
     
 class RequestGetLogDetail(BaseRequestModel):
     ref_error_id: Optional[str]
     ref_auditoria_id: Optional[str]
     
+class RequestPostGrupoListByPessoa(BasicListRequest):
+    key: int
+
+class RequestPostGrupoListLivreByPessoa(BaseRequestModel):
+    key: int
+class RequestPostCadastroGrupoNaPessoa(BaseRequestModel):
+    key: int
+    relation: int
+
+class RequestPostDeleteGrupoNaPessoa(BaseRequestModel):
+    key: int
+    
+class RequestPostNotaList(BasicListRequest):
+    descricao: Optional[str]
+    
+class RequestPostTurmaList(BasicListRequest):
+    descricao: Optional[str]
+
+class RequestPostDisciplinaListBySerie(BasicListRequest):
+    key: int
+    
+
+class RequestPostDisciplinaLivreListBySerie(BaseRequestModel):
+    key: int
+
+class RequestPostCadastroMatriz(BaseRequestModel):
+    key: int
+    relation: int
+
+class RequestPostDeleteMatriz(BaseRequestModel):
+    key: int
+
+class RequestPostPessoaListByTurma(BasicListRequest):
+    key: int
+
+class RequestPostPessoaLivreListByTurma(BaseRequestModel):
+    key: int
+
+class RequestPostCadastroMatricula(BaseRequestModel):
+    key: int
+    relation: int
+
+class RequestPostDeleteMatricula(BaseRequestModel):
+    key: int
+class RequestPostDisciplinaListByTurma(BasicListRequest):
+    key: int
+
+class RequestPostDisciplinaLivreListByTurma(BaseRequestModel):
+    key: int
+
+class RequestPostCadastroTurmaOcorrencia(BaseRequestModel):
+    key: int
+    relation: int
+
+class RequestPostDeleteTurmaOcorrencia(BaseRequestModel):
+    key: int
+class RequestPostProfessorListByTurmaOcorrencia(BasicListRequest):
+    key: int
+
+class RequestPostProfessorLivreListByTurmaOcorrencia(BaseRequestModel):
+    key: int
+
+class RequestPostCadastroTurmaProfessor(BaseRequestModel):
+    key: int
+    relation: int
+
+class RequestPostDeleteTurmaProfessor(BaseRequestModel):
+    key: int
+class RequestPostHorarioListByTurmaOcorrencia(BasicListRequest):
+    key: int
+
+class RequestPostHorarioLivreListByTurmaOcorrencia(BaseRequestModel):
+    key: int
+
+class RequestPostCadastroTurmaHorario(BaseRequestModel):
+    key: int
+    relation: int
+    
+class RequestPostDeleteTurmaHorario(BaseRequestModel):
+    key: int

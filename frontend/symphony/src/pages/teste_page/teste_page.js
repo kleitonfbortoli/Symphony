@@ -1,36 +1,19 @@
 import React from 'react'
-import DataTable from '../../components/datatable/datatable'
-import { POST_LIST_PESSOA } from '../../system/constants'
-import {Field} from 'formik'
-import * as AiIcons from 'react-icons/ai'
+import GroupForm from '../../components/datatable/GroupForm.js'
+import { POST_LIST_GRUPOS_BY_PESSOA, POST_GET_GRUPOS_LIVRE_BY_PESSOA, POST_CADASTRO_GRUPO_NA_PESSOA, POST_DELETE_GRUPO_NA_PESSOA } from '../../system/constants.js'
 
 const teste_page = () => {
-    let configuraciones = {
-        page_size: 3,
-        url: POST_LIST_PESSOA,
-        form:
-            <>
-                <div className="field-group">
-                    <Field name="nome" className="field" placeholder="Nome"/>
-                </div>
-                <div className="field-group">
-                    <Field name="email" className="field" placeholder="E-mail"/>
-                </div>
-            </>,
-        actions: [
-            {
-                path: 'cadastro-pessoa',
-                icon: <AiIcons.AiFillHome />,
-                // title: 'action teste',
-                // parameters: '&teste=a'
-
-            }
-        ]
-        
-        
+    var configuraciones = {
+        page_size: 10,
+        key: 1,
+        url_get_list: POST_LIST_GRUPOS_BY_PESSOA,
+        url_get_combo_itens: POST_GET_GRUPOS_LIVRE_BY_PESSOA,
+        url_cadastro: POST_CADASTRO_GRUPO_NA_PESSOA,
+        url_delete_cadastro: POST_DELETE_GRUPO_NA_PESSOA,
+        title: 'teste'
     }
 
-    return <DataTable configurations={ configuraciones}/>
+    return <GroupForm configurations={ configuraciones}/>
 }
 
 export default teste_page

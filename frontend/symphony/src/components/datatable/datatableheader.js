@@ -1,7 +1,11 @@
 import React from 'react'
 
 export default function DataTableHeader(parameters) {
-    
+    if (typeof parameters.configurations.actions === 'undefined')
+    {
+        parameters.configurations.actions = [];
+    }
+
     return <>
         <thead className="header">
             <tr>

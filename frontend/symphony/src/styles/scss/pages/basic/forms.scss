@@ -1,3 +1,7 @@
+
+.search-combo-option {
+    color: blue;
+}
 .form {
     display: flex;
     flex-direction: column;
@@ -61,6 +65,11 @@
             }
         }
 
+        .search-combo {
+            width: 40%;
+
+        }
+
         .submit-button {
             background: #00cc99;
             color: #fdfdfd;
@@ -68,12 +77,29 @@
             border: none;
             border-radius: 5px;
             margin-top: 2rem;
+            margin-left: 20px;
+        }
+
+        .cadastro-button {
+            background: #00cc99;
+            color: #fdfdfd;
+            padding: .5rem 2rem;
+            border: none;
+            border-radius: 5px;
+            margin-top: 2rem;
+            text-decoration: none;
         }
 
         .submit-button:hover {
             cursor: pointer;
             box-shadow: 0 4px 4px rgba(0, 0, 0, .5);
         }
+        
+        .cadastro-button:hover {
+            cursor: pointer;
+            box-shadow: 0 4px 4px rgba(0, 0, 0, .5);
+        }
+        
     }
 }
 

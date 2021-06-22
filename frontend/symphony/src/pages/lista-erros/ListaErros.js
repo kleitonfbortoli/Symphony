@@ -17,8 +17,8 @@ const ListaErros = () => {
             </>,
         actions: [
             {
-                path: 'log-details',
-                icon: <FaIcons.FaSearchPlus />,
+                path: 'auditoria-details',
+                icon: <FaIcons.FaSearch />,
                 color: 'green'
             }
         ]

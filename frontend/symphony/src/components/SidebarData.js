@@ -8,95 +8,198 @@ import * as VscIcons from 'react-icons/vsc'
 import * as MdIcons from 'react-icons/md'
 
 import Home from '../pages/home'
+
+// cadastros
 import CadastroPessoa from '../pages/cadastro-pessoa'
+import CadastroGrupoPessoa from '../pages/cadastro-grupo-pessoa'
+import CadastroGrupo from '../pages/cadastro-grupo'
 import CadastroSerie from '../pages/cadastro-serie'
-import CadastroPeriodo from '../pages/cadastro-periodo-academico'
+import CadastroPeriodo from '../pages/cadastro-periodo'
 import CadastroDisciplina from '../pages/cadastro-disciplina'
 import CadastroNota from '../pages/cadastro-nota'
 import CadastroTipoNota from '../pages/cadastro-tipo-nota'
 import CadastroHorario from '../pages/cadastro-horario'
 import CadastroModulo from '../pages/cadastro-modulo'
+import CadastroTurma from '../pages/cadastro-turma'
+import CadastroMatriz from '../pages/cadastro-matriz'
+import CadastroMatricula from '../pages/cadastro-matricula'
+import CadastroTurmaOcorrencia from '../pages/cadastro-turma-ocorrencia'
+import CadastroTurmaHorario from '../pages/cadastro-turma-horario'
+import CadastroTurmaProfessor from '../pages/cadastro-turma-professor'
+
+// listas
 import ListaErros from '../pages/lista-erros'
 import ListaAuditoria from '../pages/lista-auditoria'
+import ListaPessoa from '../pages/lista-pessoa'
+import ListaGrupo from '../pages/lista-grupo'
+import ListaHorario from '../pages/lista-horario'
+import ListaModulo from '../pages/lista-modulo'
+import ListaPeriodo from '../pages/lista-periodo'
+import ListaTipoNota from '../pages/lista-tipo-nota'
+import ListaSerie from '../pages/lista-serie'
+import ListaTurma from '../pages/lista-turma'
+import ListaDisciplina from '../pages/lista-disciplina'
 
 import PrivateRout from './PrivateRout'
 
 export const SidebarData = {
     'Home': {
-        title: 'Home',
-        path: '/',
-        icon: <AiIcons.AiFillHome />,
-        cName: 'nav-text',
-        route: <PrivateRout component={Home} path="/" exact/>
+        menu: {
+            title: 'Home',
+            path: '/',
+            icon: <AiIcons.AiFillHome />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={Home} path="/" exact />
+        ]
     },
     'Cadastro Pessoa': {
-        title: 'Cadastro Pessoa',
-        path: '/cadastro-pessoa',
-        icon: <BsIcons.BsFillPersonLinesFill />,
-        cName: 'nav-text',
-        route: <PrivateRout component={CadastroPessoa} path="/cadastro-pessoa"/>
+        menu: {
+            title: 'Pessoa',
+            path: '/pessoa-list',
+            icon: <BsIcons.BsFillPersonLinesFill />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={ListaPessoa} path="/pessoa-list" />,
+            <PrivateRout component={CadastroPessoa} path="/cadastro-pessoa" />,
+            <PrivateRout component={CadastroGrupoPessoa} path="/cadastro-grupo-pessoa" />
+        ]
     },
     'Cadastro Disciplina': {
-        title: 'Cadastro Disciplina',
-        path: '/cadastro-disciplina',
-        icon: <GiIcons.GiBookmark />,
-        cName: 'nav-text',
-        route: <PrivateRout component={CadastroDisciplina} path="/cadastro-disciplina"/>
+        menu: {
+            title: 'Disciplina',
+            path: '/lista-disciplina',
+            icon: <GiIcons.GiBookmark />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={ListaDisciplina} path="/lista-disciplina" />,
+            <PrivateRout component={CadastroDisciplina} path="/cadastro-disciplina" />
+        ]
     },
     'Cadastro Série': {
-        title: 'Cadastro Série',
-        path: '/cadastro-serie',
-        icon: <IoIcons.IoMdSchool />,
-        cName: 'nav-text',
-        route: <PrivateRout component={CadastroSerie} path="/cadastro-serie"/>
+        menu: {
+            title: 'Série',
+            path: '/lista-serie',
+            icon: <IoIcons.IoMdSchool />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={ListaSerie} path="/lista-serie" />,
+            <PrivateRout component={CadastroSerie} path="/cadastro-serie" />,
+            <PrivateRout component={CadastroMatriz} path="/cadastro-matriz" />
+        ]
     },
     'Cadastro Período': {
-        title: 'Cadastro Período',
-        path: '/cadastro-periodo-academico',
-        icon: <BsIcons.BsFillCalendarFill />,
-        cName: 'nav-text',
-        route: <PrivateRout component={CadastroPeriodo} path="/cadastro-periodo-academico"/>
+        menu: {
+            title: 'Período',
+            path: '/lista-periodo',
+            icon: <BsIcons.BsFillCalendarFill />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={ListaPeriodo} path="/lista-periodo" />,
+            <PrivateRout component={CadastroPeriodo} path="/cadastro-periodo" />
+        ]
     },
     'Cadastro Nota': {
-        title: 'Cadastro Nota',
-        path: '/cadastro-nota',
-        icon: <BsIcons.BsFileEarmarkText />,
-        cName: 'nav-text',
-        route: <PrivateRout component={CadastroNota} path="/cadastro-nota"/>
+        menu: {
+            title: 'Cadastro Nota',
+            path: '/cadastro-nota',
+            icon: <BsIcons.BsFileEarmarkText />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={CadastroNota} path="/cadastro-nota" />
+        ]
     },
     'Cadastro Tipo de Nota': {
-        title: 'Cadastro Tipo de Nota',
-        path: '/cadastro-tipo-nota',
-        icon: <IoIcons.IoMdOptions />,
-        cName: 'nav-text',
-        route: <PrivateRout component={CadastroTipoNota} path="/cadastro-tipo-nota"/>
+        menu: {
+            title: 'Tipo de Nota',
+            path: '/lista-tipo-nota',
+            icon: <IoIcons.IoMdOptions />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={ListaTipoNota} path="/lista-tipo-nota" />,
+            <PrivateRout component={CadastroTipoNota} path="/cadastro-tipo-nota" />
+        ]
+    },
+    'Cadastro Turma': {
+        menu: {
+            title: 'Turma',
+            path: '/lista-turma',
+            icon: <IoIcons.IoMdOptions />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={ListaTurma} path="/lista-turma" />,
+            <PrivateRout component={CadastroTurma} path="/cadastro-turma" />,
+            <PrivateRout component={CadastroMatricula} path="/cadastro-matricula" />,
+            <PrivateRout component={CadastroTurmaOcorrencia} path="/cadastro-turma-ocorrencia" />,
+            <PrivateRout component={CadastroTurmaProfessor} path="/cadastro-turma-professor" />,
+            <PrivateRout component={CadastroTurmaHorario} path="/cadastro-turma-horario" />
+
+        ]
     },
     'Cadastro Horário': {
-        title: 'Cadastro Horário',
-        path: '/cadastro-horario',
-        icon: <BiIcons.BiTime />,
-        cName: 'nav-text',
-        route: <PrivateRout component={CadastroHorario} path="/cadastro-horario"/>
+        menu: {
+            title: 'Horário',
+            path: '/lista-horario',
+            icon: <BiIcons.BiTime />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={ListaHorario} path="/lista-horario" />,
+            <PrivateRout component={CadastroHorario} path="/cadastro-horario" />
+        ]
     },
     'Cadastro Módulo': {
-        title: 'Cadastro Módulo',
-        path: '/cadastro-modulo',
-        icon: <BiIcons.BiTime />,
-        cName: 'nav-text',
-        route: <PrivateRout component={CadastroModulo} path="/cadastro-modulo"/>
+        menu: {
+            title: 'Módulo',
+            path: '/lista-modulo',
+            icon: <BiIcons.BiTime />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={ListaModulo} path="/lista-modulo" />,
+            <PrivateRout component={CadastroModulo} path="/cadastro-modulo" />
+        ]
+    },
+    'Cadastro Grupo': {
+        menu: {
+            title: 'Grupo',
+            path: '/lista-grupo',
+            icon: <BiIcons.BiTime />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={ListaGrupo} path="/lista-grupo" />,
+            <PrivateRout component={CadastroGrupo} path="/cadastro-grupo" />
+        ]
     },
     'Erros': {
-        title: 'Erros',
-        path: '/lista-erros',
-        icon: <VscIcons.VscError />,
-        cName: 'nav-text',
-        route: <PrivateRout component={ListaErros} path="/lista-erros"/>
+        menu: {
+            title: 'Erros',
+            path: '/lista-erros',
+            icon: <VscIcons.VscError />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={ListaErros} path="/lista-erros" />
+        ]
     },
     'Auditoria': {
-        title: 'Auditoria',
-        path: '/lista-auditoria',
-        icon: <MdIcons.MdSystemUpdateAlt />,
-        cName: 'nav-text',
-        route: <PrivateRout component={ListaAuditoria} path="/lista-auditoria"/>
+        menu: {
+            title: 'Auditoria',
+            path: '/lista-auditoria',
+            icon: <MdIcons.MdSystemUpdateAlt />,
+            cName: 'nav-text',
+        },
+        routes: [
+            <PrivateRout component={ListaAuditoria} path="/lista-auditoria" />
+        ]
     }
 }

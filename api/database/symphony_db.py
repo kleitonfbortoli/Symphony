@@ -1,7 +1,7 @@
 from peewee import Model,TextField,CharField,ForeignKeyField,IntegerField,DateField,DoubleField,BooleanField,PostgresqlDatabase,DateTimeField
 from playhouse.postgres_ext import JSONField
 from playhouse.postgres_ext import PostgresqlExtDatabase
-import json
+import datetime
 Symphony_Db = PostgresqlExtDatabase('symphony', user='symphony', password='carambolasAzuis784', host='localhost')
 
 class SymphonyModel(Model):
@@ -35,15 +35,11 @@ class Serie(SymphonyModel):
     nome = TextField()
     ch_total = IntegerField()   
 
-class Matricula_Serie(SymphonyModel):
-    ref_pessoa = ForeignKeyField(Pessoa)
-    ref_serie = ForeignKeyField(Serie)
-
 class Disciplina(SymphonyModel):
     nome = TextField()
     ch = IntegerField()
 
-class Matriz_Serie(SymphonyModel):
+class Matriz(SymphonyModel):
     ref_serie = ForeignKeyField(Serie)
     ref_disciplina = ForeignKeyField(Disciplina)
 
@@ -54,27 +50,32 @@ class Nota(SymphonyModel):
     descricao = TextField()
     ordem = IntegerField()
     ref_tipo_nota = ForeignKeyField(Tipo_Nota)
-    ref_matriz_serie = ForeignKeyField(Matriz_Serie)
+    ref_serie = ForeignKeyField(Serie)
 
-class Turma(SymphonyModel):
-    ref_matriz_serie = ForeignKeyField(Matriz_Serie)
-
-class Nota_Turma(SymphonyModel):
+class Periodo(SymphonyModel):
     descricao = TextField()
-    ordem = IntegerField()
-    ref_tipo_nota = ForeignKeyField(Tipo_Nota)
+    dt_inicio = DateField()
+    dt_final = DateField()
+class Turma(SymphonyModel):
+    descricao = TextField()
+    ref_serie = ForeignKeyField(Serie)
+    ref_periodo = ForeignKeyField(Periodo)
+    
+class Turma_Ocorencia(SymphonyModel):
     ref_turma = ForeignKeyField(Turma)
+    ref_disciplina = ForeignKeyField(Disciplina)
 
 class Avaliacao(SymphonyModel):
     nome = TextField()
     descricao = TextField()
     peso = IntegerField()
-    ref_nota_turma = ForeignKeyField(Nota_Turma)
+    ref_nota = ForeignKeyField(Nota)
+    ref_turma_ocorrencia = ForeignKeyField(Turma_Ocorencia)
 
-class Matricula_Turma(SymphonyModel):
-    dt_matricula = DateField()
+class Matricula(SymphonyModel):
+    dt_matricula = DateTimeField(default=datetime.datetime.now)
     ref_turma = ForeignKeyField(Turma)
-    ref_matricula_serie = ForeignKeyField(Matricula_Serie)
+    ref_pessoa = ForeignKeyField(Pessoa)
 
 class Horario(SymphonyModel):
     descricao = TextField()
@@ -83,29 +84,22 @@ class Horario(SymphonyModel):
     hora_ini = TextField()
     hora_fim = TextField()
 
-class Periodo_Academico(SymphonyModel):
-    descricao = TextField()
-    dt_inicio = DateField()
-    dt_final = DateField()
-
-class Turma_Ocorencia(SymphonyModel):
-    ref_turma = ForeignKeyField(Turma)
+class Turma_Horario(SymphonyModel):
     ref_horario = ForeignKeyField(Horario)
-    ref_periodo_academico = ForeignKeyField(Periodo_Academico)
-
+    ref_turma_ocorrencia = ForeignKeyField(Turma_Ocorencia)
 class Frequencia(SymphonyModel):
     fl_presente = BooleanField()
-    ref_matricula_turma = ForeignKeyField(Matricula_Turma)
+    ref_matricula = ForeignKeyField(Matricula)
     ref_turma_ocorrencia = ForeignKeyField(Turma_Ocorencia)
 
 class Turma_Professor(SymphonyModel):
     ref_pessoa = ForeignKeyField(Pessoa)
-    ref_turma = ForeignKeyField(Turma)
+    ref_turma_ocorrencia = ForeignKeyField(Turma_Ocorencia)
 
-class Avaliacao_Matricula_Turma(SymphonyModel):
+class Avaliacao_Matricula(SymphonyModel):
     valor = DoubleField()
     ref_avaliacao = ForeignKeyField(Avaliacao)
-    ref_matricula = ForeignKeyField(Matricula_Turma)
+    ref_matricula = ForeignKeyField(Matricula)
  
     
 """ TABELAS DE CONTROLE DE ACESSOS """
